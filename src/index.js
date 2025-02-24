@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import userRoute from "./routes/userRoute.js";
+import otpRoute from "./routes/otpRoute.js";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(cors());
 
 // Routes 
 app.use("/api/user",userRoute);
+app.use("/api/otp",otpRoute);
 
 app.listen(PORT, () => {
     console.log(`Server is Running on http:/localhost:${PORT}`);
