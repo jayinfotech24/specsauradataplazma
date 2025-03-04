@@ -20,6 +20,11 @@ app.use(cors());
 app.use("/api/user",userRoute);
 app.use("/api/otp",otpRoute);
 
+// default route 
+app.get("/",(req,res) => {
+    res.redirect("https://specsaura.vercel.app/");
+})
+
 app.listen(PORT, () => {
     console.log(`Server is Running on http:/localhost:${PORT}`);
 });
