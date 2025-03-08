@@ -37,6 +37,10 @@ const sendOTPEmail = async (email, otp) => {
 export const requestOTP = async (req,res) => {
     const { email } = req.body;
 
+    if (email == null || email == undefined) {
+        return res.status(400).json({ message: ERROR_MESSAGE.EMAIL_REQUIRED, status: 400 });
+    }
+
     try {
         const otp = generateOTP();
         const otpExpires = Date.now() + 2 * 60 * 1000; // OTP valid for 2 minutes
@@ -52,9 +56,9 @@ export const requestOTP = async (req,res) => {
         await user.save();
         await sendOTPEmail(email,otp);
 
-        res.status(200).json({message: SUCCESS_MESSAGE.OTP_SENT });
+        res.status(200).json({message: SUCCESS_MESSAGE.OTP_SENT, status: 200});
     } catch (error) {
-        res.status(500).json({message: ERROR_MESSAGE.OTP_ERROR });
+        res.status(500).json({message: ERROR_MESSAGE.OTP_ERROR, status: 500});
         console.log(error)
     }
 }

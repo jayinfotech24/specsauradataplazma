@@ -6,9 +6,11 @@ export const ERROR_MESSAGE = Object.freeze({
     PROCESS_REQUEST: 'Unable to process request.',   
     EMAIL_REQUIRED: 'Please provide email address.',
     OTP_ERROR: 'Error while generating OTP',
+    OTP_REQUIRE: 'OTP required',
     INVALID_OTP: 'Invalid or expired OTP',
     UNAUTHORIZED: 'Unauthorized',
-    USER_NOT_FOUND: 'User not found'
+    USER_NOT_FOUND: 'User not found',
+    ALL_FIELDS_REQUIRED: 'All fields required to update user',
 })
 
 export const SUCCESS_MESSAGE = Object.freeze({

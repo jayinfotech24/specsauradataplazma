@@ -7,15 +7,21 @@ import { ERROR_MESSAGE } from "../constants/api.js";
 export const verifyOTP = async (req,res) => {
     const { email,otp } = req.body;
 
+    if (email == null || email == undefined) {
+      return res.status(400).json({ message: ERROR_MESSAGE.EMAIL_REQUIRED, status: 400 });
+    } else if (otp == null || otp == undefined) {
+      return res.status(400).json({ message: ERROR_MESSAGE.OTP_REQUIRE, status: 400 });
+    }
+
     try {
         const otpuser = await otpUser.findOne({ email: new RegExp(`^${email}$`, 'i') });
     
         if (!otpuser) {
-          return res.status(404).json({ message: 'OTP' + ERROR_MESSAGE.USER_NOT_FOUND });
+          return res.status(404).json({ message: 'OTP' + ERROR_MESSAGE.USER_NOT_FOUND, status: 404 });
         }
     
         if (otpuser.otp !== otp || otpuser.otpExpires < Date.now()) {
-          return res.status(400).json({ message: ERROR_MESSAGE.INVALID_OTP });
+          return res.status(400).json({ message: ERROR_MESSAGE.INVALID_OTP, status: 400 });
         }
     
         otpuser.isVarified = true;
@@ -27,7 +33,10 @@ export const verifyOTP = async (req,res) => {
     
         if (!user) {
           user = new User({ email, undefined , undefined , undefined })
+          console.log("User created Sucessfully") 
         }
+
+        await user.save();
     
         // Generate JWT token
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
@@ -40,8 +49,9 @@ export const verifyOTP = async (req,res) => {
           name: user.name,
           userId: user._id,
           authToken: token,
+          status:200
         });
     } catch (error) {
-        res.status(500).json({ message: ERROR_MESSAGE.INVALID_OTP });
+        res.status(500).json({ message: ERROR_MESSAGE.INVALID_OTP, status: 500 });
     }
 }
