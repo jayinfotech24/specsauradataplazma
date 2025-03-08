@@ -7,7 +7,7 @@ const authMiddleware = async (req,res,next) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith('Bearer ') ) {
-        return res.status(401).json({ message: ERROR_MESSAGE.UNAUTHORIZED });
+        return res.status(401).json({ message: ERROR_MESSAGE.UNAUTHORIZED, status: 401 });
     }
 
     const token = authHeader.split(' ')[1];
@@ -18,13 +18,13 @@ const authMiddleware = async (req,res,next) => {
         const email = userOTP.email
 
         if (!userOTP) {
-            return res.status(401).json({ message: ERROR_MESSAGE.UNAUTHORIZED });
+            return res.status(401).json({ message: ERROR_MESSAGE.UNAUTHORIZED, status: 401 });
         }
 
         req.user = User.findOne({ email });
         next()
     } catch (error) {
-        res.status(401).json({ message: ERROR_MESSAGE.UNAUTHORIZED });
+        res.status(401).json({ message: ERROR_MESSAGE.UNAUTHORIZED, status: 401 });
     }
 };
 

@@ -2,8 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
-import userRoute from "./routes/userRoute.js";
-import otpRoute from "./routes/otpRoute.js";
+import globalRoute from "./routes/globelRoute.js";
 
 dotenv.config();
 
@@ -17,8 +16,7 @@ app.use(express.json());
 app.use(cors());
 
 // Routes 
-app.use("/api/user",userRoute);
-app.use("/api/otp",otpRoute);
+app.use("/api/",globalRoute);
 
 // default route 
 app.get("/",(req,res) => {
