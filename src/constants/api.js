@@ -14,5 +14,6 @@ export const ERROR_MESSAGE = Object.freeze({
 })
 
 export const SUCCESS_MESSAGE = Object.freeze({
-    OTP_SENT: 'OTP Sent succesfully.'  
+    OTP_SENT: 'OTP Sent succesfully.',  
+    USER_DELETED: 'User Deleted Sucessfully.'  
 })

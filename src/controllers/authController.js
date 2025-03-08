@@ -21,7 +21,7 @@ export const verifyOTP = async (req,res) => {
         }
     
         if (otpuser.otp !== otp || otpuser.otpExpires < Date.now()) {
-          return res.status(400).json({ message: ERROR_MESSAGE.INVALID_OTP, status: 400 });
+          return res.status(501).json({ message: ERROR_MESSAGE.INVALID_OTP, status: 501 });
         }
     
         otpuser.isVarified = true;
@@ -52,6 +52,6 @@ export const verifyOTP = async (req,res) => {
           status:200
         });
     } catch (error) {
-        res.status(500).json({ message: ERROR_MESSAGE.INVALID_OTP, status: 500 });
+        res.status(501).json({ message: ERROR_MESSAGE.INVALID_OTP, status: 501 });
     }
 }
