@@ -10,7 +10,7 @@ export const ERROR_MESSAGE = Object.freeze({
     INVALID_OTP: 'Invalid or expired OTP',
     UNAUTHORIZED: 'Unauthorized',
     USER_NOT_FOUND: 'User not found',
-    ALL_FIELDS_REQUIRED: 'All fields required to update user',
+    ALL_FIELDS_REQUIRED: 'All fields required',
     PRODUCT_NOT_FOUND: 'Product not found'
 })
 
