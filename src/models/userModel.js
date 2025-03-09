@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema(
         name:{type:String,default:null},
         number:{type:String,default:null},
         address: {type:String,default:null}
-    }
+    },
+    { timestamps: true } // Adds createdAt and updatedAt
 )
 
 const User = mongoose.model("User",userSchema);

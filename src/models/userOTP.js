@@ -6,7 +6,8 @@ const otpSchema = new mongoose.Schema(
         otp:{type:String},
         otpExpires: Date,
         isVarified: {type:Boolean,default:false}
-    }
+    },
+    { timestamps: true } // Adds createdAt and updatedAt
 )
 
 const otpUser = mongoose.model("OTP",otpSchema);

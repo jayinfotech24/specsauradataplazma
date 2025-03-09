@@ -4,6 +4,8 @@ import { verifyOTP } from "../controllers/authController.js";
 import { getAllUsers,getUserByID,createUser,updateUser, deleteUser } from "../controllers/userController.js"
 import { getReference } from "../controllers/referenceController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
+import { createProduct, deleteProduct, getAllProducts, updateProduct } from "../controllers/productController.js";
+import { createContact } from "../controllers/contactController.js";
 
 
 const globalRoute = express.Router();
@@ -20,6 +22,19 @@ globalRoute.get("/all",authMiddleware,getAllUsers);
 globalRoute.get("/:id",authMiddleware,getUserByID);
 globalRoute.delete("/:id",authMiddleware,deleteUser);
 globalRoute.post("/create",createUser);
-globalRoute.post("/update",updateUser);
+globalRoute.put("/update",updateUser);
+
+// PRODUCT ROUTES
+globalRoute.get("/products/all",getAllProducts);
+globalRoute.post("/product",authMiddleware,createProduct);
+globalRoute.delete("/product/:id",authMiddleware,deleteProduct);
+globalRoute.put("/product/:id",authMiddleware,updateProduct);
+
+// CART ROUTES
+
+
+// CONTACt ROUTE
+globalRoute.post("/contact",createContact);
+
 
 export default globalRoute;

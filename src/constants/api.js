@@ -11,9 +11,11 @@ export const ERROR_MESSAGE = Object.freeze({
     UNAUTHORIZED: 'Unauthorized',
     USER_NOT_FOUND: 'User not found',
     ALL_FIELDS_REQUIRED: 'All fields required to update user',
+    PRODUCT_NOT_FOUND: 'Product not found'
 })
 
 export const SUCCESS_MESSAGE = Object.freeze({
     OTP_SENT: 'OTP Sent succesfully.',  
-    USER_DELETED: 'User Deleted Sucessfully.'  
+    USER_DELETED: 'User Deleted Sucessfully.',
+    PRODUCT_DELETE: 'Product deltect successfully.'
 })
