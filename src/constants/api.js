@@ -11,11 +11,13 @@ export const ERROR_MESSAGE = Object.freeze({
     UNAUTHORIZED: 'Unauthorized',
     USER_NOT_FOUND: 'User not found',
     ALL_FIELDS_REQUIRED: 'All fields required',
-    PRODUCT_NOT_FOUND: 'Product not found'
+    PRODUCT_NOT_FOUND: 'Product not found',
+    FILE_NOT_FOUND: 'File not found',
 })
 
 export const SUCCESS_MESSAGE = Object.freeze({
     OTP_SENT: 'OTP Sent succesfully.',  
     USER_DELETED: 'User Deleted Sucessfully.',
-    PRODUCT_DELETE: 'Product deltect successfully.'
+    PRODUCT_DELETE: 'Product deltect successfully.',
+    FILE_UPLOADED: 'File uploaded successfully.',
 })

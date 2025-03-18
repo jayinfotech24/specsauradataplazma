@@ -6,6 +6,7 @@ import { getReference } from "../controllers/referenceController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import { createProduct, deleteProduct, getAllProducts, updateProduct } from "../controllers/productController.js";
 import { createContact } from "../controllers/contactController.js";
+import { upload, uploadFile } from '../controllers/fileController.js';
 
 
 const globalRoute = express.Router();
@@ -29,6 +30,9 @@ globalRoute.get("/products/all",getAllProducts);
 globalRoute.post("/product",authMiddleware,createProduct);
 globalRoute.delete("/product/:id",authMiddleware,deleteProduct);
 globalRoute.put("/product/:id",authMiddleware,updateProduct);
+
+// File Upload
+globalRoute.post('/upload', upload.single('file'), uploadFile);
 
 // CART ROUTES
 
