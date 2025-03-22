@@ -2,7 +2,8 @@ import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../constants/api.js";
 import otpUser from "../models/userOTP.js";
 import { generateOTPTemplate } from "../constants/otpTemplate.js"
 import crypto from "crypto";
-import axios from "axios";
+import nodemailer from "nodemailer";
+import { google } from "googleapis";
 
 // Generate OTP
 const generateOTP = () => {
@@ -13,28 +14,42 @@ const generateOTP = () => {
 // Send OTP via email
 const sendOTPEmail = async (email, otp) => {
 
+    const oAuth2Client = new google.auth.OAuth2(process.env.CLIENT_ID, process.env.CLIENT_SECRET, process.env.REDIRECT_URI);
+    oAuth2Client.setCredentials({ refresh_token: process.env.CLIENT_REFRESH_TOKEN });
+
+    const accessToken = await oAuth2Client.getAccessToken();
+
+    const transport = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            type: 'OAUTH2',
+            user: process.env.SENDER_MAIL,  //set these in your .env file
+            clientId: process.env.CLIENT_ID,
+            clientSecret: process.env.CLIENT_SECRET,
+            refreshToken: process.env.CLIENT_REFRESH_TOKEN,
+            accessToken: accessToken,
+            expires: 3599
+        }
+    })
+
     let htmlTemp = generateOTPTemplate(otp)
 
     const emailOtpData = {
-        sender: { name: "SpecsAura", email: process.env.SENDER_MAIL},
-        to: [{ email: email }],
-        subject: `Speacaura Login OTP for ${ new Date().toLocaleDateString() }`,
-        htmlContent: htmlTemp,
-      };
+        from: "no-reply@SpecsAura",
+        to: email,
+        subject: `SpeacAura Login OTP for ${new Date().toLocaleDateString()}`,
+        html: htmlTemp,
+    };
 
-      try {
-        await axios.post('https://api.brevo.com/v3/smtp/email', emailOtpData, {
-            headers: { 'api-key': process.env.BREVO_EMAIL_API_KEY },
-          });
-
-          console.log("email sent successfully")
-      } catch (error) {
-        console.warn("Error sending email")
-        console.log(error)
-      }
+    try {
+        const result = await transport.sendMail(emailOtpData);
+        return result
+    } catch (error) {
+        return error
+    }
 };
 
-export const requestOTP = async (req,res) => {
+export const requestOTP = async (req, res) => {
     const { email } = req.body;
 
     if (email == null || email == undefined) {
@@ -54,11 +69,17 @@ export const requestOTP = async (req,res) => {
         }
 
         await user.save();
-        await sendOTPEmail(email,otp);
+        await sendOTPEmail(email, otp).then(result => {
+            res.status(200).json({ message: SUCCESS_MESSAGE.OTP_SENT, status: 200 });
+        }).catch(error => {
+            res.status(500).json({ message: ERROR_MESSAGE.OTP_ERROR, status: 500 });
+            console.log(error)
+            console.error(error.message)
+        })
 
-        res.status(200).json({message: SUCCESS_MESSAGE.OTP_SENT, status: 200});
     } catch (error) {
-        res.status(500).json({message: ERROR_MESSAGE.OTP_ERROR, status: 500});
+        res.status(500).json({ message: ERROR_MESSAGE.OTP_ERROR, status: 500 });
         console.log(error)
+        console.error(error.message)
     }
 }
