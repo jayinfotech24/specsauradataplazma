@@ -1,12 +1,12 @@
 import express from "express";
-import { requestOTP } from "../controllers/otpController.js";
-import { verifyOTP } from "../controllers/authController.js";
-import { getAllUsers,getUserByID,createUser,updateUser, deleteUser } from "../controllers/userController.js"
-import { getReference } from "../controllers/referenceController.js";
-import authMiddleware from "../middleware/authMiddleware.js";
-import { createProduct, deleteProduct, getAllProducts, updateProduct } from "../controllers/productController.js";
-import { createContact } from "../controllers/contactController.js";
-import { upload, uploadFile } from '../controllers/fileController.js';
+import { requestOTP } from "../controllers/otp.controller.js";
+import { verifyOTP } from "../controllers/auth.controller.js";
+import { getAllUsers,getUserByID,createUser,updateUser, deleteUser } from "../controllers/user.controller.js"
+import { getReference } from "../controllers/ref.controller.js";
+import authMiddleware from "../middleware/auth.middleware.js";
+import { createProduct, deleteProduct, getAllProducts, updateProduct } from "../controllers/product.controller.js";
+import { createContact } from "../controllers/contact.controller.js";
+import { upload, uploadFile } from '../controllers/file.controller.js';
 
 
 const globalRoute = express.Router();

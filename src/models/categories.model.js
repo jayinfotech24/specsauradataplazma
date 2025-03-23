@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { MODEL_NAME } from "../constants/DBConst.js";
 
 const categorySchema = new mongoose.Schema(
     {
@@ -9,6 +10,6 @@ const categorySchema = new mongoose.Schema(
     { timestamps: true } // Adds createdAt and updatedAt
 )
 
-const category = mongoose.model("Category",categorySchema);
+const category = mongoose.model(MODEL_NAME.CATEGORY,categorySchema);
 
 export default category;

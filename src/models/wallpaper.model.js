@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { MODEL_NAME } from "../constants/DBConst.js";
 
 const wallpaperSchema = new mongoose.Schema(
     {
@@ -9,6 +10,6 @@ const wallpaperSchema = new mongoose.Schema(
     { timestamps: true } // Adds createdAt and updatedAt
 )
 
-const wallpapers = mongoose.model("Wallpapers",wallpaperSchema);
+const wallpapers = mongoose.model(MODEL_NAME.WALLPAPERS,wallpaperSchema);
 
 export default wallpapers;

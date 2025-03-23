@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import otpUser from "../models/userOTP.js";
-import User from "../models/userModel.js";
+import otpUser from "../models/otp.model.js";
+import User from "../models/user.model.js";
 import { ERROR_MESSAGE } from "../constants/api.js";
 
 // Varify OTP 

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { MODEL_NAME } from "../constants/DBConst.js";
 
 const videoSchema = new mongoose.Schema(
     {
@@ -8,6 +9,6 @@ const videoSchema = new mongoose.Schema(
     { timestamps: true } // Adds createdAt and updatedAt
 )
 
-const DisplayVideo = mongoose.model("DisplayVideo",videoSchema);
+const DisplayVideo = mongoose.model(MODEL_NAME.DISPLAYVIDEO,videoSchema);
 
 export default DisplayVideo;

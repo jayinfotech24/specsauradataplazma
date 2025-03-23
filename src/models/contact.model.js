@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { MODEL_NAME } from "../constants/DBConst.js";
 
 const contactSchema = new mongoose.Schema(
     {
@@ -11,6 +12,6 @@ const contactSchema = new mongoose.Schema(
     { timestamps: true } // Adds createdAt and updatedAt
 )
 
-const Contact = mongoose.model("Contact", contactSchema);
+const Contact = mongoose.model(MODEL_NAME.CONTACT, contactSchema);
 
 export default Contact;

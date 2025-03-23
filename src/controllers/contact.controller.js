@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../constants/api.js";
-import Contact from "../models/contactModel.js";
+import Contact from "../models/contact.model.js";
 
 export const createContact = async (req, res) => {
     try {

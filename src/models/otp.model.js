@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { MODEL_NAME } from "../constants/DBConst.js";
 
 const otpSchema = new mongoose.Schema(
     {
@@ -10,6 +11,6 @@ const otpSchema = new mongoose.Schema(
     { timestamps: true } // Adds createdAt and updatedAt
 )
 
-const otpUser = mongoose.model("OTP",otpSchema);
+const otpUser = mongoose.model(MODEL_NAME.OTP,otpSchema);
 
 export default otpUser;

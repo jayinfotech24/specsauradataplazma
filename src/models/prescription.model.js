@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { MODEL_NAME } from "../constants/DBConst.js";
 
 const prescriptionSchema = new mongoose.Schema(
     {
@@ -19,6 +20,6 @@ const prescriptionSchema = new mongoose.Schema(
     { timestamps: true } // Adds createdAt and updatedAt
 )
 
-const Prescription = mongoose.model("Prescription", prescriptionSchema);
+const Prescription = mongoose.model(MODEL_NAME.PRESCRIPTION, prescriptionSchema);
 
 export default Prescription;

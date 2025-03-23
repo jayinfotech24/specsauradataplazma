@@ -1,7 +1,7 @@
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../constants/api.js";
-import wallpapers from "../models/wallpaperModel.js";
-import category from "../models/categoriesModel.js";
-import DisplayVideo from "../models/displayvideoModel.js";
+import wallpapers from "../models/wallpaper.model.js";
+import category from "../models/categories.model.js";
+import DisplayVideo from "../models/displayVideo.model.js";
 
 
 // reference data for home screen

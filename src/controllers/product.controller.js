@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../constants/api.js";
-import Product from "../models/productModel.js";
+import Product from "../models/product.model.js";
 
 
 export const getAllProducts = async (req, res) => {

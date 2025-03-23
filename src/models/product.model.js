@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { MODEL_NAME } from "../constants/DBConst.js";
 
 const productSchema = new mongoose.Schema(
     {
@@ -14,6 +15,6 @@ const productSchema = new mongoose.Schema(
     { timestamps: true } // Adds createdAt and updatedAt
 )
 
-const Product = mongoose.model("Product",productSchema);
+const Product = mongoose.model(MODEL_NAME.PRODUCT,productSchema);
 
 export default Product;

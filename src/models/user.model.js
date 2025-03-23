@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { MODEL_NAME } from "../constants/DBConst.js";
 
 const userSchema = new mongoose.Schema(
     {
@@ -8,9 +9,9 @@ const userSchema = new mongoose.Schema(
         address: {type:String,default:null},
         imageUrl: {type:String, default: null}
     },
-    { timestamps: true } // Adds createdAt and updatedAt
+    { timestamps: true }
 )
 
-const User = mongoose.model("User",userSchema);
+const User = mongoose.model(MODEL_NAME.USER,userSchema);
 
 export default User;
