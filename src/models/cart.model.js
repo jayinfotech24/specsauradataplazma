@@ -17,7 +17,7 @@ const cartSchema = new mongoose.Schema(
         lensMaterial: { type: String, required: false },
         prescriptionID: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: MODEL_NAME.PRODUCT,
+            ref: MODEL_NAME.PRESCRIPTION,
         },
     },
     { timestamps: true } // Adds createdAt and updatedAt

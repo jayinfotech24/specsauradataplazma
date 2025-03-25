@@ -13,6 +13,7 @@ export const ERROR_MESSAGE = Object.freeze({
     ALL_FIELDS_REQUIRED: 'All fields required',
     PRODUCT_NOT_FOUND: 'Product not found',
     FILE_NOT_FOUND: 'File not found',
+    INVALID_SIGNATURE: 'Invalid Signature',
 })
 
 export const SUCCESS_MESSAGE = Object.freeze({
@@ -20,4 +21,5 @@ export const SUCCESS_MESSAGE = Object.freeze({
     USER_DELETED: 'User Deleted Sucessfully.',
     PRODUCT_DELETE: 'Product deltect successfully.',
     FILE_UPLOADED: 'File uploaded successfully.',
+    PAYMENT_VARIFIED: 'Payment Verified',
 })
