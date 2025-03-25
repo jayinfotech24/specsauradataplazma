@@ -2,7 +2,7 @@ import { google } from "googleapis";
 import nodemailer from "nodemailer";
 
 // Send OTP via email
-export const sendOTPEmail = async (email, htmlTemp) => {
+export const sendEmail = async (email, htmlTemp) => {
 
     const oAuth2Client = new google.auth.OAuth2(process.env.CLIENT_ID, process.env.CLIENT_SECRET, process.env.REDIRECT_URI);
     oAuth2Client.setCredentials({ refresh_token: process.env.CLIENT_REFRESH_TOKEN });

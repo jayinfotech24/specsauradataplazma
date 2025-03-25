@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../constants/api.js";
 import otpUser from "../models/otp.model.js";
-import { sendOTPEmail } from "./mail.controller.js";
+import { sendEmail } from "./mail.controller.js";
 import { generateOTPTemplate } from "../constants/otpTemplate.js"
 
 // Generate OTP
@@ -32,7 +32,7 @@ export const requestOTP = async (req, res) => {
         await user.save();
         let htmlTemp = generateOTPTemplate(otp)
 
-        await sendOTPEmail(email, htmlTemp).then(result => {
+        await sendEmail(email, htmlTemp).then(result => {
             res.status(200).json({ message: SUCCESS_MESSAGE.OTP_SENT, status: 200 });
         }).catch(error => {
             res.status(500).json({ message: ERROR_MESSAGE.OTP_ERROR, status: 500 });

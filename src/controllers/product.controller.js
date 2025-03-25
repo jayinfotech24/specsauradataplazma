@@ -45,7 +45,7 @@ export const updateProduct = async (req, res) => {
         let product = await Product.findById(id); // Await the query
 
         if (!product) {
-            return res.status(404).json({ message: "Product not found" });
+            return res.status(404).json({ message: "Product not found", status: 404 });
         }
 
         // Update only provided fields

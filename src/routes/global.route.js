@@ -8,6 +8,9 @@ import { createProduct, deleteProduct, getAllProducts, updateProduct } from "../
 import { createContact } from "../controllers/contact.controller.js";
 import { upload, uploadFile } from '../controllers/file.controller.js';
 import { varifyPayment, createRazorOrder } from '../controllers/payment.controller.js';
+import { createWallpaper, updateWallpaper, deleteWallpaper } from'../controllers/wallpaper.controller.js';
+import { createVideo, updateVideo, deleteVideo } from'../controllers/video.controller.js';
+import { createCategory, updateCategory, deleteCategory } from'../controllers/categories.controller.js';
 
 
 const globalRoute = express.Router();
@@ -35,6 +38,19 @@ globalRoute.put("/product/:id",authMiddleware,updateProduct);
 // PAYMENT ROUTE 
 globalRoute.post("/createPaymentOrder",authMiddleware,createRazorOrder);
 globalRoute.post("/varifyPayment",authMiddleware,varifyPayment);
+
+// Wallpaper, Categories, Video
+globalRoute.post("/wallpaper",authMiddleware,createWallpaper);
+globalRoute.post("/category",authMiddleware,createCategory);
+globalRoute.post("/video",authMiddleware,createVideo);
+
+globalRoute.put("/wallpaper/:id",authMiddleware,updateWallpaper);
+globalRoute.put("/category/:id",authMiddleware,updateCategory);
+globalRoute.put("/video/:id",authMiddleware,updateVideo);
+
+globalRoute.delete("/wallpaper/:id",authMiddleware,deleteWallpaper);
+globalRoute.delete("/category/:id",authMiddleware,deleteCategory);
+globalRoute.delete("/video/:id",authMiddleware,deleteVideo);
 
 // File Upload
 globalRoute.post('/upload', upload.single('file'), uploadFile);

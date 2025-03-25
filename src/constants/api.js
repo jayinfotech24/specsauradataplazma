@@ -18,8 +18,11 @@ export const ERROR_MESSAGE = Object.freeze({
 
 export const SUCCESS_MESSAGE = Object.freeze({
     OTP_SENT: 'OTP Sent succesfully.',  
-    USER_DELETED: 'User Deleted Sucessfully.',
-    PRODUCT_DELETE: 'Product deltect successfully.',
+    USER_DELETED: 'User deleted sucessfully.',
+    PRODUCT_DELETE: 'Product delted successfully.',
+    WALLPAPER_DELETE: 'Walpaper delted successfully.',
+    VIDEO_DELETE: 'Video delted successfully.',
+    CATEGORY_DELETE: 'Category delted successfully.',
     FILE_UPLOADED: 'File uploaded successfully.',
     PAYMENT_VARIFIED: 'Payment Verified',
 })
