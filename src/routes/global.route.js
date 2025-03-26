@@ -11,6 +11,8 @@ import { varifyPayment, createRazorOrder } from '../controllers/payment.controll
 import { createWallpaper, updateWallpaper, deleteWallpaper } from'../controllers/wallpaper.controller.js';
 import { createVideo, updateVideo, deleteVideo } from'../controllers/video.controller.js';
 import { createCategory, updateCategory, deleteCategory } from'../controllers/categories.controller.js';
+import { createCart, updateCart, deleteCart, getAllCartforuser } from "../controllers/cart.controller.js";
+import { createPrescription, updatePrescription, deletePrescription } from "../controllers/prescription.controller.js";
 
 
 const globalRoute = express.Router();
@@ -23,17 +25,17 @@ globalRoute.post("/request",requestOTP);
 globalRoute.post("/verify",verifyOTP);
 
 // USER ROUTE
-globalRoute.get("/all",authMiddleware,getAllUsers);
-globalRoute.get("/:id",authMiddleware,getUserByID);
-globalRoute.delete("/:id",authMiddleware,deleteUser);
-globalRoute.put("/update",authMiddleware,updateUser);
-globalRoute.post("/create",createUser);
+globalRoute.get("/user/all",authMiddleware,getAllUsers);
+globalRoute.get("/user/:id",authMiddleware,getUserByID);
+globalRoute.delete("/user/:id",authMiddleware,deleteUser);
+globalRoute.patch("/user/update",authMiddleware,updateUser);
+globalRoute.post("/user/create",createUser);
 
 // PRODUCT ROUTES
 globalRoute.get("/products/all",getAllProducts);
 globalRoute.post("/product",authMiddleware,createProduct);
 globalRoute.delete("/product/:id",authMiddleware,deleteProduct);
-globalRoute.put("/product/:id",authMiddleware,updateProduct);
+globalRoute.patch("/product/:id",authMiddleware,updateProduct);
 
 // PAYMENT ROUTE 
 globalRoute.post("/createPaymentOrder",authMiddleware,createRazorOrder);
@@ -44,19 +46,27 @@ globalRoute.post("/wallpaper",authMiddleware,createWallpaper);
 globalRoute.post("/category",authMiddleware,createCategory);
 globalRoute.post("/video",authMiddleware,createVideo);
 
-globalRoute.put("/wallpaper/:id",authMiddleware,updateWallpaper);
-globalRoute.put("/category/:id",authMiddleware,updateCategory);
-globalRoute.put("/video/:id",authMiddleware,updateVideo);
+globalRoute.patch("/wallpaper/:id",authMiddleware,updateWallpaper);
+globalRoute.patch("/category/:id",authMiddleware,updateCategory);
+globalRoute.patch("/video/:id",authMiddleware,updateVideo);
 
 globalRoute.delete("/wallpaper/:id",authMiddleware,deleteWallpaper);
 globalRoute.delete("/category/:id",authMiddleware,deleteCategory);
 globalRoute.delete("/video/:id",authMiddleware,deleteVideo);
 
+// CART ROUTES
+globalRoute.post('/cart',authMiddleware,createCart);
+globalRoute.patch('/cart/:id',authMiddleware,updateCart);
+globalRoute.delete('/cart/:id',authMiddleware,deleteCart);
+globalRoute.get('/cart/:id',authMiddleware,getAllCartforuser);
+
+// PRESCRIPTION ROUTES
+globalRoute.post('/presc',authMiddleware,createPrescription);
+globalRoute.patch('/presc/:id',authMiddleware,updatePrescription);
+globalRoute.delete('/presc/:id',authMiddleware,deletePrescription);
+
 // File Upload
 globalRoute.post('/upload', upload.single('file'), uploadFile);
-
-// CART ROUTES
-
 
 // CONTACt ROUTE
 globalRoute.post("/contact",createContact);
