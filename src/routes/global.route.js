@@ -13,6 +13,7 @@ import { createVideo, updateVideo, deleteVideo } from'../controllers/video.contr
 import { createCategory, updateCategory, deleteCategory } from'../controllers/categories.controller.js';
 import { createCart, updateCart, deleteCart, getAllCartforuser } from "../controllers/cart.controller.js";
 import { createPrescription, updatePrescription, deletePrescription } from "../controllers/prescription.controller.js";
+import { createOrder, updateOrder, getOrderById, getOrders, deleteOrder, getAllOders } from "../controllers/order.controller.js";
 
 
 const globalRoute = express.Router();
@@ -64,6 +65,14 @@ globalRoute.get('/cart/:id',authMiddleware,getAllCartforuser);
 globalRoute.post('/presc',authMiddleware,createPrescription);
 globalRoute.patch('/presc/:id',authMiddleware,updatePrescription);
 globalRoute.delete('/presc/:id',authMiddleware,deletePrescription);
+
+// ORDER ROUTES
+globalRoute.post('/order',authMiddleware,createOrder);
+globalRoute.get('/orders',authMiddleware,getOrders);
+globalRoute.get('/order/:id',authMiddleware,getOrderById);
+globalRoute.patch('/order/:id',authMiddleware,updateOrder);
+globalRoute.delete('/order/:id',authMiddleware,deleteOrder);
+globalRoute.get('/order/all',authMiddleware,getAllOders);
 
 // File Upload
 globalRoute.post('/upload', upload.single('file'), uploadFile);

@@ -8,4 +8,5 @@ export const MODEL_NAME = Object.freeze({
     PRESCRIPTION: 'Prescription',
     PRODUCT: 'Product',
     WALLPAPERS: 'Wallpapers',
+    ORDER: 'Order',
 })
