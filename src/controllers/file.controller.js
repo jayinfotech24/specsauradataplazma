@@ -19,7 +19,16 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: 'uploads',
-        allowed_formats: ['jpg', 'png', 'jpeg', 'pdf', 'mp4', 'txt'],
+        allowed_formats: [
+            // Image formats
+            'jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'svg', 'ico',  
+        
+            // Document formats
+            'pdf', 'txt', 'doc', 'docx', 'odt', 'rtf', 'xls', 'xlsx', 'csv', 'ppt', 'pptx',  
+        
+            // Video formats
+            'mp4', 'mov', 'avi', 'wmv', 'flv', 'mkv', 'webm'
+        ],
     },
 });
 
@@ -27,15 +36,20 @@ const upload = multer({ storage: storage });
 
 // Controller Function
 const uploadFile = (req, res) => {
-    if (!req.file) {
-        return res.status(400).json({ message: ERROR_MESSAGE.FILE_NOT_FOUND, status: 400 });
-    }
 
-    res.status(200).json({
-        status: 200,
-        message: SUCCESS_MESSAGE.FILE_UPLOADED,
-        fileUrl: req.file.path, // Public URL
-    });
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: ERROR_MESSAGE.FILE_NOT_FOUND, status: 400 });
+        }
+    
+        res.status(200).json({
+            status: 200,
+            message: SUCCESS_MESSAGE.FILE_UPLOADED,
+            fileUrl: req.file.path, // Public URL
+        });
+    } catch (error) {
+        res.status(500).json({ message: ERROR_MESSAGE.PROCESS_REQUEST, status: 500 });
+    }
 };
 
 export { upload, uploadFile };

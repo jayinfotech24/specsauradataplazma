@@ -2,6 +2,17 @@ import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../constants/api.js";
 import wallpapers from "../models/wallpaper.model.js";
 
 // Wallpapers Management 
+export const getAllwallpapers = async (req,res) => {
+    try {
+
+        const wallpaer = await wallpapers.find();
+        res.status(200).json({ items: wallpaer, status: 200})
+
+    } catch (error) {
+        res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 });
+    }
+}
+
 
 export const createWallpaper = async (req, res) => {
     try {

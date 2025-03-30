@@ -3,6 +3,29 @@ import category from "../models/categories.model.js";
 
 
 // Category Management 
+export const getAllcategory = async (req,res) => {
+    try {
+
+        const categories = await category.find();
+        res.status(200).json({ items: categories , status: 200 });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 });
+    }
+}
+
+export const getCategoryByID = async (req,res) => {
+    try {
+
+        const { id } = req.param
+        const cat = await category.findById(id);
+        res.status(200).json(cat);
+
+    } catch (error) {
+        res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 });
+    }
+}
 
 export const createCategory = async (req, res) => {
     try {

@@ -3,6 +3,17 @@ import displayVideo from "../models/displayVideo.model.js";
 
 // Wallpapers Management 
 
+export const getAllVideos = async (req,res) => {
+    try {
+
+        const videos = await displayVideo.find();
+        res.status(200).json({ items: videos, status: 200 });
+
+    } catch (error) {
+        res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 });
+    }
+}
+
 export const createVideo = async (req, res) => {
     try {
 

@@ -8,9 +8,9 @@ import { createProduct, deleteProduct, getAllProducts, updateProduct } from "../
 import { createContact } from "../controllers/contact.controller.js";
 import { upload, uploadFile } from '../controllers/file.controller.js';
 import { varifyPayment, createRazorOrder } from '../controllers/payment.controller.js';
-import { createWallpaper, updateWallpaper, deleteWallpaper } from'../controllers/wallpaper.controller.js';
-import { createVideo, updateVideo, deleteVideo } from'../controllers/video.controller.js';
-import { createCategory, updateCategory, deleteCategory } from'../controllers/categories.controller.js';
+import { createWallpaper, updateWallpaper, deleteWallpaper, getAllwallpapers } from'../controllers/wallpaper.controller.js';
+import { createVideo, updateVideo, deleteVideo, getAllVideos } from'../controllers/video.controller.js';
+import { createCategory, updateCategory, deleteCategory, getAllcategory, getCategoryByID } from'../controllers/categories.controller.js';
 import { createCart, updateCart, deleteCart, getAllCartforuser } from "../controllers/cart.controller.js";
 import { createPrescription, updatePrescription, deletePrescription } from "../controllers/prescription.controller.js";
 import { createOrder, updateOrder, getOrderById, getOrders, deleteOrder, getAllOders } from "../controllers/order.controller.js";
@@ -79,6 +79,14 @@ globalRoute.post('/upload', upload.single('file'), uploadFile);
 
 // CONTACt ROUTE
 globalRoute.post("/contact",createContact);
+
+// get Request Calls 
+globalRoute.get("/wallpaper",getAllwallpapers);
+
+globalRoute.get("/category",getAllcategory);
+globalRoute.get("/category/:id",getCategoryByID);
+
+globalRoute.get("/video", getAllVideos);
 
 
 export default globalRoute;
