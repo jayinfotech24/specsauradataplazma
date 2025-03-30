@@ -1,7 +1,7 @@
 import Razorpay from "razorpay";
 import { v4 as uuidv4 } from 'uuid';
 import crypto from 'crypto';
-import { SUCCESS_MESSAGE, ERROR_MESSAGE } from "../constants/api";
+import { SUCCESS_MESSAGE, ERROR_MESSAGE } from "../constants/api.js";
 
 const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID,
