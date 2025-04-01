@@ -21,7 +21,7 @@ const storage = new CloudinaryStorage({
         folder: 'uploads',
         allowed_formats: [
             // Image formats
-            'jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'svg', 'ico',  
+            'jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'svg', 'ico', 'avif', 
         
             // Document formats
             'pdf', 'txt', 'doc', 'docx', 'odt', 'rtf', 'xls', 'xlsx', 'csv', 'ppt', 'pptx',  
