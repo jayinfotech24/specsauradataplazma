@@ -4,7 +4,7 @@ import { verifyOTP } from "../controllers/auth.controller.js";
 import { getAllUsers,getUserByID,createUser,updateUser, deleteUser } from "../controllers/user.controller.js"
 import { getReference } from "../controllers/ref.controller.js";
 import authMiddleware from "../middleware/auth.middleware.js";
-import { createProduct, deleteProduct, getAllProducts, updateProduct } from "../controllers/product.controller.js";
+import { createProduct, deleteProduct, getAllProducts, updateProduct,getProduct } from "../controllers/product.controller.js";
 import { createContact } from "../controllers/contact.controller.js";
 import { upload, uploadFile } from '../controllers/file.controller.js';
 import { varifyPayment, createRazorOrder } from '../controllers/payment.controller.js';
@@ -34,9 +34,11 @@ globalRoute.post("/user/create",createUser);
 
 // PRODUCT ROUTES
 globalRoute.get("/products/all",getAllProducts);
-globalRoute.post("/product",authMiddleware,createProduct);
+globalRoute.post("/product",createProduct);
+globalRoute.get("/product/:id",getProduct);
 globalRoute.delete("/product/:id",authMiddleware,deleteProduct);
 globalRoute.patch("/product/:id",authMiddleware,updateProduct);
+
 
 // PAYMENT ROUTE 
 globalRoute.post("/createPaymentOrder",authMiddleware,createRazorOrder);

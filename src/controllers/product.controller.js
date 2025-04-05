@@ -83,3 +83,18 @@ export const deleteProduct = async (req, res) => {
         res.status(500).json({ error: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 });
     }
 };
+
+export const getProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findById(id);
+
+        if (!product) {
+            return res.status(404).json({ error: ERROR_MESSAGE.PRODUCT_NOT_FOUND, status: 404 });
+        }
+
+        res.status(200).json({ product , status: 200 });
+    } catch (error) {
+        res.status(500).json({ error: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 });
+    }
+};
