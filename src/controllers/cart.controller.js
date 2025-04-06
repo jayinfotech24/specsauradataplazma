@@ -24,7 +24,8 @@ export const createCart = async (req, res) => {
         res.status(200).json({ cart, status: 200 })
 
     } catch (error) {
-        res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 })
+        console.log(error.message)
+        res.status(500).json({ message: error.message, status: 500 })
     }
 }
 
