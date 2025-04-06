@@ -5,7 +5,7 @@ export const createCart = async (req, res) => {
     try {
         const { userID, productID, lensType, numberOfItems, lensCoating, lensMaterial, prescriptionID } = req.body
 
-        if (!userID || !productID || !lensType || !numberOfItems || !prescriptionID) {
+        if (!userID || !productID || !numberOfItems ) {
             res.status(404).json({ message: "please provide all fileds.", status: 404 });
         }
 
