@@ -10,7 +10,7 @@ const razorpay = new Razorpay({
 
 export const createRazorOrder = async (req, res) => {
     const { amount } = req.body;
-    const receiptId = `receipt_${uuidv4()}`;
+    const receiptId = `rcpt_${uuidv4().slice(0, 30)}`;
 
     const options = {
         amount: amount * 100, // Amount in paise (₹1 = 100 paise)
