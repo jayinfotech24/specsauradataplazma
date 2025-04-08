@@ -7,7 +7,8 @@ const contactSchema = new mongoose.Schema(
         email: { type: String, required: true},
         mobile: { type: String, required: true},
         subject: { type: String, required: false , default: null},
-        message: { type: String, required: false, default: null}
+        message: { type: String, required: false, default: null},
+        isDelete: { type: Boolean, default: false}
     },
     { timestamps: true } // Adds createdAt and updatedAt
 )

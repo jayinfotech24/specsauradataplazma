@@ -5,7 +5,7 @@ import wallpapers from "../models/wallpaper.model.js";
 export const getAllwallpapers = async (req,res) => {
     try {
 
-        const wallpaer = await wallpapers.find();
+        const wallpaer = await wallpapers.find({ isDelete: false});
         res.status(200).json({ items: wallpaer, status: 200})
 
     } catch (error) {
@@ -65,11 +65,14 @@ export const deleteWallpaper = async (req, res) => {
 
         const { id } = req.param
 
-        let wallpaper = await wallpapers.findByIdAndDelete(id);
+        let wallpaper = await wallpapers.findById(id);
 
         if (!wallpaper) {
             return res.status(404).json({ message: "Wallpaper not found", status: 404 });
         }
+
+        wallpaper.isDelete = true
+        await wallpaper.save();
 
         res.status(200).json({ message: SUCCESS_MESSAGE.WALLPAPER_DELETE, status: 200 });
 

@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema(
         name:{type:String,default:null},
         number:{type:String,default:null},
         address: {type:String,default:null},
-        imageUrl: {type:String, default: null}
+        imageUrl: {type:String, default: null},
+        isDelete: { type: Boolean, default: false}
     },
     { timestamps: true }
 )

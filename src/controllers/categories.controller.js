@@ -19,7 +19,7 @@ export const getCategoryByID = async (req,res) => {
     try {
 
         const { id } = req.param
-        const cat = await category.findById(id);
+        const cat = await category.findOne({ _id: id, isDelete: false });
         res.status(200).json(cat);
 
     } catch (error) {
@@ -78,11 +78,15 @@ export const deleteCategory = async (req, res) => {
 
         const { id } = req.param
 
-        let cat = await category.findByIdAndDelete(id);
+        let cat = await category.findById(id);
 
         if (!cat) {
             return res.status(404).json({ message: "category not found", status: 404 });
         }
+
+        cat.isDelete = true
+
+        await cat.save();
 
         res.status(200).json({ message: SUCCESS_MESSAGE.CATEGORY_DELETE, status: 200 });
 

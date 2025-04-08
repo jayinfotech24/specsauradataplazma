@@ -6,7 +6,8 @@ const otpSchema = new mongoose.Schema(
         email:{type:String,requred:true,unique:true},
         otp:{type:String},
         otpExpires: Date,
-        isVarified: {type:Boolean,default:false}
+        isVarified: {type:Boolean,default:false},
+        isDelete: { type: Boolean, default: false}
     },
     { timestamps: true } // Adds createdAt and updatedAt
 )

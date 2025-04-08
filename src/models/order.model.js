@@ -31,6 +31,7 @@ const orderSchema = new mongoose.Schema(
             country: { type: String, required: true },
             phone: { type: String, required: true },
         },
+        isDelete: { type: Boolean, default: false}
     },
     { timestamps: true }
 );

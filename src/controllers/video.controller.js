@@ -6,7 +6,7 @@ import displayVideo from "../models/displayVideo.model.js";
 export const getAllVideos = async (req,res) => {
     try {
 
-        const videos = await displayVideo.find();
+        const videos = await displayVideo.find({ isDelete: false});
         res.status(200).json({ items: videos, status: 200 });
 
     } catch (error) {
@@ -63,11 +63,14 @@ export const deleteVideo = async (req, res) => {
 
         const { id } = req.param
 
-        let video = await displayVideo.findByIdAndDelete(id);
+        let video = await displayVideo.findById(id);
 
         if (!video) {
             return res.status(404).json({ message: "Video not found", status: 404 });
         }
+
+        video.isDelete = true
+        video.save();
 
         res.status(200).json({ message: SUCCESS_MESSAGE.VIDEO_DELETE, status: 200 });
 

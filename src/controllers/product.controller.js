@@ -4,7 +4,7 @@ import Product from "../models/product.model.js";
 
 export const getAllProducts = async (req, res) => {
     try {
-        const products = await Product.find();
+        const products = await Product.find({ isDelete: false});
         res.status(200).json({ products, status: 200 })
     } catch (error) {
         res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 })
@@ -72,11 +72,15 @@ export const updateProduct = async (req, res) => {
 export const deleteProduct = async (req, res) => {
     try {
         const { id } = req.params;
-        const deletedProduct = await Product.findByIdAndDelete(id);
+        const deletedProduct = await Product.findById(id);
 
-        if (!deleteProduct) {
+        if (!deletedProduct) {
             return res.status(404).json({ error: ERROR_MESSAGE.PRODUCT_NOT_FOUND, status: 404 });
         }
+
+        deletedProduct.isDelete = true
+
+        await deletedProduct.save()
 
         res.status(200).json({ message: SUCCESS_MESSAGE.PRODUCT_DELETE, status: 200 });
     } catch (error) {

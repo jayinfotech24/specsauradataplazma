@@ -61,11 +61,15 @@ export const deleteCart = async (req, res) => {
             return res.status(400).json({ message: "Cart ID is required.", status: 400 });
         }
 
-        const deletedCart = await Cart.findByIdAndDelete(id);
+        const deletedCart = await Cart.findById(id);
 
         if (!deletedCart) {
             return res.status(404).json({ message: "Cart not found.", status: 404 });
         }
+
+        deletedCart.isDelete = true
+
+        await deleteCart.save();
 
         res.status(200).json({ message: "Cart deleted successfully.", status: 200 });
 
@@ -81,7 +85,7 @@ export const getAllCartforuser = async (req, res) => {
 
         const { userid } = req.param
 
-        const carts = await Cart.find({ userid })
+        const carts = await Cart.find({ userid,isDelete: false })
 
         res.status(200).json(carts);
 

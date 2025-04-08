@@ -4,7 +4,7 @@ import User from "../models/user.model.js";
 // Get All users
 export const getAllUsers = async (req,res) => {
     try {
-        const users = await User.find();
+        const users = await User.find({ isDelete: false});
         res.status(200).json({users,status:200})
     } catch (error) {
         res.status(500).json({message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status:500})
@@ -15,7 +15,7 @@ export const getAllUsers = async (req,res) => {
 // get user by ID 
 export const getUserByID = async (req,res) => {
     try {
-        const user = await User.findById(req.params.id);
+        const user = await User.findOne({ _id:req.params.id, isDelete: false});
         if (!user) return res.status(404).json({message:ERROR_MESSAGE.USER_NOT_FOUND, status: 404})
             res.status(200).json({user , status: 200});
     } catch (error) {
@@ -84,11 +84,15 @@ export const createUser = async (req,res) => {
 export const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const deletedUser = await User.findByIdAndDelete(id);
+        const deletedUser = await User.findById(id);
 
         if (!deletedUser) {
             return res.status(404).json({ error: ERROR_MESSAGE.USER_NOT_FOUND, status: 404 });
         }
+
+        deletedUser.isDelete = true
+
+        await deletedUser.save();
 
         res.status(200).json({ message: SUCCESS_MESSAGE.USER_DELETED, status: 200 });
     } catch (error) {

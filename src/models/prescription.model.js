@@ -18,6 +18,7 @@ const prescriptionSchema = new mongoose.Schema(
             pd: { type: String }, // Pupillary Distance
         },
         prescriptionURL: { type: String, default: null },
+        isDelete: { type: Boolean, default: false}
     },
     { timestamps: true }
 );

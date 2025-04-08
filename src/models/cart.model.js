@@ -19,6 +19,7 @@ const cartSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: MODEL_NAME.PRESCRIPTION,
         },
+        isDelete: { type: Boolean, default: false}
     },
     { timestamps: true } // Adds createdAt and updatedAt
 )

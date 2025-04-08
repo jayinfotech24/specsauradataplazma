@@ -75,11 +75,15 @@ export const deletePrescription = async (req, res) => {
             return res.status(400).json({ message: "Prescription ID is required.", status: 400 });
         }
 
-        const deletedPrescription = await Prescription.findByIdAndDelete(id);
+        const deletedPrescription = await Prescription.findById(id);
 
         if (!deletedPrescription) {
             return res.status(404).json({ message: "Prescription not found.", status: 404 });
         }
+
+        deletedPrescription.isDelete = true
+
+        deletedPrescription.save();
 
         res.status(200).json({ message: "Prescription deleted successfully.", status: 200 });
 
