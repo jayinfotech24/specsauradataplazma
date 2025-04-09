@@ -14,7 +14,7 @@ import { createCategory, updateCategory, deleteCategory, getAllcategory, getCate
 import { createCart, updateCart, deleteCart, getAllCartforuser } from "../controllers/cart.controller.js";
 import { createPrescription, updatePrescription, deletePrescription } from "../controllers/prescription.controller.js";
 import { createOrder, updateOrder, getOrderById, getOrders, deleteOrder, getAllOders } from "../controllers/order.controller.js";
-
+import { createBlog, updateBlog, deleteBlog, getAllBlogs, getSingleBlog } from "../controllers/blog.controller.js";
 
 const globalRoute = express.Router();
 
@@ -75,6 +75,13 @@ globalRoute.get('/order/:id',authMiddleware,getOrderById);
 globalRoute.patch('/order/:id',authMiddleware,updateOrder);
 globalRoute.delete('/order/:id',authMiddleware,deleteOrder);
 globalRoute.get('/order/all',authMiddleware,getAllOders);
+
+// BLOG ROUTE
+globalRoute.get('/blog',getAllBlogs);
+globalRoute.get('/blog/:id',getSingleBlog);
+globalRoute.post('/blog',authMiddleware,createBlog);
+globalRoute.patch('/blog/:id',authMiddleware,updateBlog);
+globalRoute.delete('/blog/:id',authMiddleware,deleteBlog);
 
 // File Upload
 globalRoute.post('/upload', upload.single('file'), uploadFile);
