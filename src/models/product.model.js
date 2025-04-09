@@ -14,7 +14,8 @@ const productSchema = new mongoose.Schema(
         availableItems: { type: Number, default: 0 },
         url: { type: String, default: null },
         images: { type: String, default: null },
-        isDelete: { type: Boolean, default: false}
+        isDelete: { type: Boolean, default: false},
+        description: { type: String, default: null},
     },
     { timestamps: true } // Adds createdAt and updatedAt
 )

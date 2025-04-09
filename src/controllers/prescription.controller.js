@@ -23,7 +23,7 @@ export const createPrescription = async (req, res) => {
 
         await prescription.save();
 
-        res.status(201).json({ prescription, status: 201 });
+        res.status(200).json({ prescription, status: 200 });
 
     } catch (error) {
         console.error("Error creating prescription:", error);

@@ -13,7 +13,7 @@ export const getAllProducts = async (req, res) => {
 
 export const createProduct = async (req, res) => {
     try {
-        const { name, color, category, price, totalItems, availableItems, url, images } = req.body;
+        const { name, color, category, price, totalItems, availableItems, url, images, description } = req.body;
 
         // create new user 
         const product = new Product({
@@ -25,6 +25,7 @@ export const createProduct = async (req, res) => {
             availableItems: availableItems || undefined,
             url: url || undefined,
             images: images || undefined,
+            description: description || undefined
         });
 
         await product.save();
@@ -40,7 +41,7 @@ export const updateProduct = async (req, res) => {
     try {
 
         const { id } = req.params;
-        const { name, color, category, price, totalItems, availableItems, url, images } = req.body;
+        const { name, color, category, price, totalItems, availableItems, url, images, description } = req.body;
 
         let product = await Product.findById(id); // Await the query
 
@@ -57,6 +58,7 @@ export const updateProduct = async (req, res) => {
         if (availableItems) product.availableItems = availableItems;
         if (url) product.url = url;
         if (images) product.images = images;
+        if (description) product.description = description;
 
         await product.save(); // Save changes
 
