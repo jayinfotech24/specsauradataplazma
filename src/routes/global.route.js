@@ -11,8 +11,8 @@ import { varifyPayment, createRazorOrder } from '../controllers/payment.controll
 import { createWallpaper, updateWallpaper, deleteWallpaper, getAllwallpapers } from'../controllers/wallpaper.controller.js';
 import { createVideo, updateVideo, deleteVideo, getAllVideos } from'../controllers/video.controller.js';
 import { createCategory, updateCategory, deleteCategory, getAllcategory, getCategoryByID } from'../controllers/categories.controller.js';
-import { createCart, updateCart, deleteCart, getAllCartforuser } from "../controllers/cart.controller.js";
-import { createPrescription, updatePrescription, deletePrescription } from "../controllers/prescription.controller.js";
+import { createCart, updateCart, deleteCart, getAllCartforuser, getSingleCart } from "../controllers/cart.controller.js";
+import { createPrescription, updatePrescription, deletePrescription, getPrescription } from "../controllers/prescription.controller.js";
 import { createOrder, updateOrder, getOrderById, getOrders, deleteOrder, getAllOders } from "../controllers/order.controller.js";
 import { createBlog, updateBlog, deleteBlog, getAllBlogs, getSingleBlog } from "../controllers/blog.controller.js";
 
@@ -62,15 +62,17 @@ globalRoute.post('/cart',authMiddleware,createCart);
 globalRoute.patch('/cart/:id',authMiddleware,updateCart);
 globalRoute.delete('/cart/:id',authMiddleware,deleteCart);
 globalRoute.get('/cart/:id',authMiddleware,getAllCartforuser);
+globalRoute.get('/cart/:id',authMiddleware,getSingleCart);
 
 // PRESCRIPTION ROUTES
 globalRoute.post('/presc',authMiddleware,createPrescription);
 globalRoute.patch('/presc/:id',authMiddleware,updatePrescription);
 globalRoute.delete('/presc/:id',authMiddleware,deletePrescription);
+globalRoute.get('/presc/:id',authMiddleware, getPrescription);
 
 // ORDER ROUTES
 globalRoute.post('/order',authMiddleware,createOrder);
-globalRoute.get('/orders',authMiddleware,getOrders);
+globalRoute.get('/orders/:userID',authMiddleware,getOrders);
 globalRoute.get('/order/:id',authMiddleware,getOrderById);
 globalRoute.patch('/order/:id',authMiddleware,updateOrder);
 globalRoute.delete('/order/:id',authMiddleware,deleteOrder);

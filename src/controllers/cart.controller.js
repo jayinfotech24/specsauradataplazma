@@ -85,7 +85,28 @@ export const getAllCartforuser = async (req, res) => {
 
         const { userid } = req.param
 
-        const carts = await Cart.find({ userid,isDelete: false })
+        const carts = await Cart.find({ userID: userid,isDelete: false })
+        .populate("prescription")
+        .populate("productID")
+        .exec();
+
+        res.status(200).json(carts);
+
+    } catch (error) {
+        res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 })
+    }
+}
+
+// get all cart data from user id 
+export const getSingleCart = async (req, res) => {
+    try {
+
+        const { cartID } = req.param
+
+        const carts = await Cart.find({ _id: cartID,isDelete: false })
+        .populate("prescription")
+        .populate("productID")
+        .exec();
 
         res.status(200).json(carts);
 

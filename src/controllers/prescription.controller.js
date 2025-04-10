@@ -92,3 +92,21 @@ export const deletePrescription = async (req, res) => {
         res.status(500).json({ message: "Internal server error", status: 500 });
     }
 };
+
+export const getPrescription = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const prescription = Prescription.findById(id);
+
+        if (prescription) {
+            res.status(200).json({ prescription, status: 200 });
+        } else {
+            res.status(400).json({ message: "Error getting Prescription", status: 400 });
+        }
+
+    } catch (error) {
+        console.error("Error getting prescription:", error);
+        res.status(500).json({ message: "Internal server error", status: 500 });
+    }
+}

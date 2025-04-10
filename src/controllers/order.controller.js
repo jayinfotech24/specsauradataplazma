@@ -18,7 +18,11 @@ export const createOrder = async (req, res) => {
 
 export const getAllOders = async (req,res) => {
     try {
-        const orders = await Order.find({ isDelete: false});
+        const orders = await Order.find({ isDelete: false})
+        .populate('product')
+        .populate('prescription')
+        .populate('user')
+        .exec();
         res.status(200).json(orders);
     } catch (error) {
         res.status(500).json({ message: error.message, status: 500 });
@@ -32,7 +36,7 @@ export const getOrders = async (req, res) => {
             return res.status(400).json({ message: "User ID is required", status: 400 });
         }
 
-        const orders = await Order.find({ user: userID,isDelete: false }).populate("product");
+        const orders = await Order.find({ user: userID,isDelete: false }).populate("product").populate('prescription').exec();
         res.status(200).json(orders);
     } catch (error) {
         res.status(500).json({ message: error.message, status: 500 });
@@ -42,7 +46,7 @@ export const getOrders = async (req, res) => {
 export const getOrderById = async (req, res) => {
     try {
         const { id } = req.params 
-        const order = await Order.findOne({ _id: id, isDelete: false}).populate("user").populate("product");
+        const order = await Order.findOne({ _id: id, isDelete: false}).populate("user").populate("product").populate("prescription").exec();
         if (!order) return res.status(404).json({ error: "Order not found", status: 404 });
         res.status(200).json(order);
     } catch (error) {

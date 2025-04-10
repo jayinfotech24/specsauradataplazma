@@ -4,9 +4,10 @@ import Product from "../models/product.model.js";
 
 export const getAllProducts = async (req, res) => {
     try {
-        const products = await Product.find({ isDelete: false});
+        const products = await Product.find({ isDelete: false }).populate('category').exec();
         res.status(200).json({ products, status: 200 })
     } catch (error) {
+        console.log(error);
         res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 })
     }
 }
@@ -93,7 +94,9 @@ export const deleteProduct = async (req, res) => {
 export const getProduct = async (req, res) => {
     try {
         const { id } = req.params;
-        const product = await Product.findById(id);
+        const product = await Product.findOne({ _id: id, isDelete: false })
+        .populate('category')
+        .exec();
 
         if (!product) {
             return res.status(404).json({ error: ERROR_MESSAGE.PRODUCT_NOT_FOUND, status: 404 });
