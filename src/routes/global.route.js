@@ -15,6 +15,7 @@ import { createCart, updateCart, deleteCart, getAllCartforuser, getSingleCart } 
 import { createPrescription, updatePrescription, deletePrescription, getPrescription } from "../controllers/prescription.controller.js";
 import { createOrder, updateOrder, getOrderById, getOrders, deleteOrder, getAllOrders } from "../controllers/order.controller.js";
 import { createBlog, updateBlog, deleteBlog, getAllBlogs, getSingleBlog } from "../controllers/blog.controller.js";
+import { adminLogin } from "../controllers/admin.controller.js";
 
 const globalRoute = express.Router();
 
@@ -99,5 +100,7 @@ globalRoute.get("/category/:id",getCategoryByID);
 
 globalRoute.get("/video", getAllVideos);
 
+// Admin Routes 
+globalRoute.post("/admin/login", adminLogin);
 
 export default globalRoute;

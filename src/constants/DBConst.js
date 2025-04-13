@@ -9,5 +9,6 @@ export const MODEL_NAME = Object.freeze({
     PRODUCT: 'Product',
     WALLPAPERS: 'Wallpapers',
     ORDER: 'Order',
-    BLOGS: 'Blogs'
+    BLOGS: 'Blogs',
+    ADMIN: 'Admin'
 })
