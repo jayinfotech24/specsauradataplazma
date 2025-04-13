@@ -13,7 +13,7 @@ import { createVideo, updateVideo, deleteVideo, getAllVideos } from'../controlle
 import { createCategory, updateCategory, deleteCategory, getAllcategory, getCategoryByID } from'../controllers/categories.controller.js';
 import { createCart, updateCart, deleteCart, getAllCartforuser, getSingleCart } from "../controllers/cart.controller.js";
 import { createPrescription, updatePrescription, deletePrescription, getPrescription } from "../controllers/prescription.controller.js";
-import { createOrder, updateOrder, getOrderById, getOrders, deleteOrder, getAllOders } from "../controllers/order.controller.js";
+import { createOrder, updateOrder, getOrderById, getOrders, deleteOrder, getAllOrders } from "../controllers/order.controller.js";
 import { createBlog, updateBlog, deleteBlog, getAllBlogs, getSingleBlog } from "../controllers/blog.controller.js";
 
 const globalRoute = express.Router();
@@ -76,7 +76,7 @@ globalRoute.get('/orders/:userID',authMiddleware,getOrders);
 globalRoute.get('/order/:id',authMiddleware,getOrderById);
 globalRoute.patch('/order/:id',authMiddleware,updateOrder);
 globalRoute.delete('/order/:id',authMiddleware,deleteOrder);
-globalRoute.get('/order/all',authMiddleware,getAllOders);
+globalRoute.get('/order/all',authMiddleware,getAllOrders);
 
 // BLOG ROUTE
 globalRoute.get('/blog',getAllBlogs);
