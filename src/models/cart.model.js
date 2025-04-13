@@ -12,7 +12,7 @@ const cartSchema = new mongoose.Schema(
             ref: MODEL_NAME.PRODUCT,
         },
         lesnsType: { type: String, default: null },
-        numberOfItems: { type: Number, required: true },
+        numberOfItems: { type: Number, required: true, min: 1 },
         lensCoating: { type: String, default: null }, 
         lensMaterial: { type: String, default: null },
         prescriptionID: {
