@@ -22,7 +22,7 @@ export const adminLogin = async (req, res) => {
            return res.status(400).json({ message: "Incorrect Password", status: 400});
         }
 
-        const otpuser = await otpUser.findOne({ email: new RegExp(`^${email}$`, 'i') });
+        let otpuser = await otpUser.findOne({ email: new RegExp(`^${email}$`, 'i') });
 
         if (!otpuser) {
             otpuser = new otpUser({ email,undefined,undefined});
