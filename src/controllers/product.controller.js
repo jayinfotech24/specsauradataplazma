@@ -14,7 +14,7 @@ export const getAllProducts = async (req, res) => {
 
 export const createProduct = async (req, res) => {
     try {
-        const { name, color, category, price, totalItems, availableItems, url, images, description } = req.body;
+        const { name, color, category, price, totalItems, availableItems, url, images, description,brandName,modelNo,productID,frameWidth,frameHeight,frameDimention,frameColor ,lensColor, templeColor,frameMaterial,lens,powerSunglasses,gender,warranty} = req.body;
 
         // create new user 
         const product = new Product({
@@ -26,7 +26,21 @@ export const createProduct = async (req, res) => {
             availableItems: availableItems || undefined,
             url: url || undefined,
             images: images || undefined,
-            description: description || undefined
+            description: description || undefined,
+            brandName: brandName || undefined,
+            modelNo: modelNo || undefined,
+            productID: productID || undefined,
+            frameWidth: frameWidth || 0,
+            frameHeight: frameHeight || 0,
+            frameDimention: frameDimention || undefined,
+            frameColor: frameColor || undefined,
+            lensColor: lensColor || undefined,
+            templeColor: templeColor || undefined,
+            frameMaterial: frameMaterial || undefined,
+            lens: lens || undefined,
+            powerSunglasses: powerSunglasses || false,
+            gender: gender || 'MALE',
+            warranty: warranty || undefined
         });
 
         await product.save();
@@ -42,7 +56,7 @@ export const updateProduct = async (req, res) => {
     try {
 
         const { id } = req.params;
-        const { name, color, category, price, totalItems, availableItems, url, images, description } = req.body;
+        const { name, color, category, price, totalItems, availableItems, url, images, description,brandName,modelNo,productID,frameWidth,frameHeight,frameDimention,frameColor ,lensColor, templeColor,frameMaterial,lens,powerSunglasses,gender,warranty } = req.body;
 
         let product = await Product.findById(id); // Await the query
 
@@ -60,6 +74,20 @@ export const updateProduct = async (req, res) => {
         if (url) product.url = url;
         if (images) product.images = images;
         if (description) product.description = description;
+        if (brandName) product.brandName = brandName;
+        if (modelNo) product.modelNo = modelNo;
+        if (productID) product.productID = productID;
+        if (frameWidth) product.frameWidth = frameWidth;
+        if (frameHeight) product.frameHeight = frameHeight;
+        if (frameDimention) product.frameDimention = frameDimention;
+        if (frameColor) product.frameColor = frameColor;
+        if (lensColor) product.lensColor = lensColor;
+        if (templeColor) product.templeColor = templeColor;
+        if (frameMaterial) product.frameMaterial = frameMaterial;
+        if (lens) product.lens = lens;
+        if (powerSunglasses !== undefined) product.powerSunglasses = powerSunglasses;
+        if (gender) product.gender = gender;
+        if (warranty) product.warranty = warranty;        
 
         await product.save(); // Save changes
 
