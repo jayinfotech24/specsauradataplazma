@@ -52,4 +52,27 @@ const uploadFile = (req, res) => {
     }
 };
 
-export { upload, uploadFile };
+// Upload middleware for multiple files (change the max count as needed)
+const uploadMultiple = multer({ storage: storage }).array('files', 10); // "files" is the field name
+
+// Controller Function for Multiple File Uploads
+const uploadMultipleFiles = (req, res) => {
+    try {
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({ message: ERROR_MESSAGE.FILE_NOT_FOUND, status: 400 });
+        }
+
+        const fileUrls = req.files.map(file => file.path);
+
+        res.status(200).json({
+            status: 200,
+            message: SUCCESS_MESSAGE.FILE_UPLOADED,
+            fileUrls,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: ERROR_MESSAGE.PROCESS_REQUEST, status: 500 });
+    }
+};
+
+export { upload, uploadFile, uploadMultiple, uploadMultipleFiles };

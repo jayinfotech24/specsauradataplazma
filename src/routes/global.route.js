@@ -6,7 +6,7 @@ import { getReference } from "../controllers/ref.controller.js";
 import authMiddleware from "../middleware/auth.middleware.js";
 import { createProduct, deleteProduct, getAllProducts, updateProduct,getProduct } from "../controllers/product.controller.js";
 import { createContact } from "../controllers/contact.controller.js";
-import { upload, uploadFile } from '../controllers/file.controller.js';
+import { upload, uploadFile, uploadMultiple, uploadMultipleFiles } from '../controllers/file.controller.js';
 import { varifyPayment, createRazorOrder } from '../controllers/payment.controller.js';
 import { createWallpaper, updateWallpaper, deleteWallpaper, getAllwallpapers } from'../controllers/wallpaper.controller.js';
 import { createVideo, updateVideo, deleteVideo, getAllVideos } from'../controllers/video.controller.js';
@@ -88,6 +88,7 @@ globalRoute.delete('/blog/:id',authMiddleware,deleteBlog);
 
 // File Upload
 globalRoute.post('/upload', upload.single('file'), uploadFile);
+globalRoute.post('/upload-multiple', uploadMultiple, uploadMultipleFiles);
 
 // CONTACt ROUTE
 globalRoute.post("/contact",createContact);
