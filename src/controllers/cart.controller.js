@@ -83,7 +83,7 @@ export const deleteCart = async (req, res) => {
 export const getAllCartforuser = async (req, res) => {
     try {
 
-        const { userid } = req.param
+        const { userid } = req.params
 
         const carts = await Cart.find({ userID: userid,isDelete: false })
         .populate("prescription")
@@ -101,7 +101,7 @@ export const getAllCartforuser = async (req, res) => {
 export const getSingleCart = async (req, res) => {
     try {
 
-        const { cartID } = req.param
+        const { cartID } = req.params
 
         const carts = await Cart.find({ _id: cartID,isDelete: false })
         .populate("prescription")

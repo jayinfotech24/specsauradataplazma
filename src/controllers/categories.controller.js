@@ -15,13 +15,16 @@ export const getAllcategory = async (req,res) => {
     }
 }
 
-export const getCategoryByID = async (req,res) => {
+export const getCategoryByID = async (req, res) => {
     try {
-
-        const { id } = req.param
+        const { id } = req.params;
         const cat = await category.findOne({ _id: id, isDelete: false });
-        res.status(200).json(cat);
 
+        if (cat) {
+            res.status(200).json(cat);
+        } else {
+            res.status(400).json({ message: "Category not found", status: 400 });
+        }
     } catch (error) {
         res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 });
     }
@@ -50,7 +53,7 @@ export const createCategory = async (req, res) => {
 export const updateCategory = async (req, res) => {
     try {
 
-        const { id } = req.param
+        const { id } = req.params
         const { url, title, description } = req.body;
 
         let cat = await category.findById(id);
@@ -76,7 +79,7 @@ export const updateCategory = async (req, res) => {
 export const deleteCategory = async (req, res) => {
     try {
 
-        const { id } = req.param
+        const { id } = req.params
 
         let cat = await category.findById(id);
 

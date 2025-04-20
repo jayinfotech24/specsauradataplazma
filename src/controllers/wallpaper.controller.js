@@ -37,7 +37,7 @@ export const createWallpaper = async (req, res) => {
 export const updateWallpaper = async (req, res) => {
     try {
 
-        const { id } = req.param
+        const { id } = req.params
         const { url, title, description } = req.body;
 
         let wallpaper = await wallpapers.findById(id);
@@ -63,7 +63,7 @@ export const updateWallpaper = async (req, res) => {
 export const deleteWallpaper = async (req, res) => {
     try {
 
-        const { id } = req.param
+        const { id } = req.params
 
         let wallpaper = await wallpapers.findById(id);
 

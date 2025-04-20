@@ -36,7 +36,7 @@ export const createVideo = async (req, res) => {
 export const updateVideo = async (req, res) => {
     try {
 
-        const { id } = req.param
+        const { id } = req.params
         const { url, title } = req.body;
 
         let video = await displayVideo.findById(id);
@@ -61,7 +61,7 @@ export const updateVideo = async (req, res) => {
 export const deleteVideo = async (req, res) => {
     try {
 
-        const { id } = req.param
+        const { id } = req.params
 
         let video = await displayVideo.find({ _id:id, isDelete: false});
 

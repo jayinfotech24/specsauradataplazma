@@ -15,7 +15,7 @@ export const getAllBlogs = async (req, res) => {
 
 export const getSingleBlog = async (req, res) => {
     try {
-        const { id } = req.param;
+        const { id } = req.params;
         const blog = await Blog.findById(id);
 
         if (blog) {
@@ -57,7 +57,7 @@ export const createBlog = async (req, res) => {
 
 export const updateBlog = async (req, res) => {
     try {
-        const { id } = req.param;
+        const { id } = req.params;
         const { url, title, description, writerName } = req.body;
 
         const blog = await Blog.findById(id);
@@ -84,7 +84,7 @@ export const updateBlog = async (req, res) => {
 
 export const deleteBlog = async (req, res) => {
     try {
-        const { id } = req.param;
+        const { id } = req.params;
 
         const blog = await Blog.findById(id);
 
