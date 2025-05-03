@@ -82,15 +82,14 @@ export const deleteCart = async (req, res) => {
 // get all cart data from user id 
 export const getAllCartforuser = async (req, res) => {
     try {
+        const { id } = req.params;
 
-        const { userid } = req.params
-
-        const carts = await Cart.find({ userID: userid,isDelete: false })
-        .populate("prescription")
+        const carts = await Cart.find({ userID: id, isDelete: false })
+        .populate("prescriptionID")
         .populate("productID")
         .exec();
 
-        res.status(200).json(carts);
+        res.status(200).json({ items: carts, status: 200});
 
     } catch (error) {
         res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 })
@@ -101,14 +100,14 @@ export const getAllCartforuser = async (req, res) => {
 export const getSingleCart = async (req, res) => {
     try {
 
-        const { cartID } = req.params
+        const { id } = req.params;
 
-        const carts = await Cart.find({ _id: cartID,isDelete: false })
-        .populate("prescription")
+        const carts = await Cart.findOne({ _id: id,isDelete: false })
+        .populate("prescriptionID")
         .populate("productID")
         .exec();
 
-        res.status(200).json(carts);
+        res.status(200).json({ carts, status: 200 });
 
     } catch (error) {
         res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 })

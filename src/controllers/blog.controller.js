@@ -4,7 +4,7 @@ import { ERROR_MESSAGE } from "../constants/api.js";
 
 export const getAllBlogs = async (req, res) => {
     try {
-        const blogs = await Blog.find();
+        const blogs = await Blog.find({ isDelete: false });
 
         res.status(200).json({ items: blogs, status: 200 });
     } catch (error) {
@@ -16,7 +16,7 @@ export const getAllBlogs = async (req, res) => {
 export const getSingleBlog = async (req, res) => {
     try {
         const { id } = req.params;
-        const blog = await Blog.findById(id);
+        const blog = await Blog.findOne({ _id:id, isDelete: false});
 
         if (blog) {
             res.status(200).json({ blog, status: 200 });

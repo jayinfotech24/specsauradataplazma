@@ -43,12 +43,12 @@ export const getAllOrders = async (req, res) => {
 
 export const getOrders = async (req, res) => {
     try {
-        const { userID } = req.params;
-        if (!userID) {
+        const { id } = req.params;
+        if (!id) {
             return res.status(400).json({ message: "User ID is required", status: 400 });
         }
 
-        const orders = await Order.find({ user: userID,isDelete: false })
+        const orders = await Order.find({ user: id,isDelete: false })
         .populate({
             path: "items.product",
             model: MODEL_NAME.PRODUCT

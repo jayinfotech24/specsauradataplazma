@@ -62,7 +62,7 @@ globalRoute.delete("/video/:id",authMiddleware,deleteVideo);
 globalRoute.post('/cart',authMiddleware,createCart);
 globalRoute.patch('/cart/:id',authMiddleware,updateCart);
 globalRoute.delete('/cart/:id',authMiddleware,deleteCart);
-globalRoute.get('/cart/:id',authMiddleware,getAllCartforuser);
+globalRoute.get('/cart/all/:id',authMiddleware,getAllCartforuser);
 globalRoute.get('/cart/:id',authMiddleware,getSingleCart);
 
 // PRESCRIPTION ROUTES
@@ -73,7 +73,7 @@ globalRoute.get('/presc/:id',authMiddleware, getPrescription);
 
 // ORDER ROUTES
 globalRoute.post('/order',authMiddleware,createOrder);
-globalRoute.get('/orders/:userID',authMiddleware,getOrders);
+globalRoute.get('/orders/:id',authMiddleware,getOrders);
 globalRoute.get('/order/:id',authMiddleware,getOrderById);
 globalRoute.patch('/order/:id',authMiddleware,updateOrder);
 globalRoute.delete('/order/:id',authMiddleware,deleteOrder);
