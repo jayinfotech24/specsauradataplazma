@@ -8,9 +8,9 @@ import DisplayVideo from "../models/displayVideo.model.js";
 
 export const getReference = async (req, res) => {
     try {
-        const wallpaper = await wallpapers.find({ isDelete: false});
-        const categories = await category.find({ isDelete: false});
-        const displayVideo = await DisplayVideo.find({ isDelete: false});
+        const wallpaper = await wallpapers.find({ isDelete: false });
+        const categories = await category.find({ isDelete: false });
+        const displayVideo = await DisplayVideo.find({ isDelete: false });
 
         res.json({
             wallpapers: wallpaper,
