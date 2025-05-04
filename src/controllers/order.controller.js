@@ -3,19 +3,35 @@ import Order from "../models/order.model.js";
 
 export const createOrder = async (req, res) => {
     try {
-        const { user, items, quantity, totalAmount, paymentMethod, shippingAddress } = req.body;
+        const { user, items, totalAmount, paymentMethod, shippingAddress } = req.body;
 
-        if (!user || !items || !quantity || !totalAmount || !paymentMethod || !shippingAddress) {
+        // Basic validations
+        if (!user || !items || !Array.isArray(items) || items.length === 0 || !totalAmount || !paymentMethod || !shippingAddress) {
             return res.status(400).json({ message: "All required fields must be provided", status: 400 });
         }
 
-        const order = new Order(req.body);
+        // Optional: Validate required fields inside shippingAddress
+        const requiredAddressFields = ['fullName', 'address', 'city', 'state', 'zipCode', 'country', 'phone'];
+        const hasMissingAddressFields = requiredAddressFields.some(field => !shippingAddress[field]);
+        if (hasMissingAddressFields) {
+            return res.status(400).json({ message: "Incomplete shipping address", status: 400 });
+        }
+
+        const order = new Order({
+            user,
+            items,
+            totalAmount,
+            paymentMethod,
+            shippingAddress
+        });
+
         await order.save();
-        res.status(201).json(order);
+        res.status(201).json({ message: "Order created successfully", order, status: 201 });
     } catch (error) {
-        res.status(400).json({ message: error.message, status: 400 });
+        console.error("Create Order Error:", error);
+        res.status(500).json({ message: error.message || "Internal server error", status: 500 });
     }
-}
+};
 
 export const getAllOrders = async (req, res) => {
     try {
