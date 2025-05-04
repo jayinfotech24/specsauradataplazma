@@ -3,9 +3,9 @@ import Order from "../models/order.model.js";
 
 export const createOrder = async (req, res) => {
     try {
-        const { user, product, quantity, totalAmount, paymentMethod, shippingAddress } = req.body;
+        const { user, items, quantity, totalAmount, paymentMethod, shippingAddress } = req.body;
 
-        if (!user || !product || !quantity || !totalAmount || !paymentMethod || !shippingAddress) {
+        if (!user || !items || !quantity || !totalAmount || !paymentMethod || !shippingAddress) {
             return res.status(400).json({ message: "All required fields must be provided", status: 400 });
         }
 
