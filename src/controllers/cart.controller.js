@@ -55,21 +55,21 @@ export const updateCart = async (req, res) => {
 
 export const deleteCart = async (req, res) => {
     try {
-        const { id } = req.params; // Get cart ID from URL params
+        const { id } = req.params;
 
         if (!id) {
             return res.status(400).json({ message: "Cart ID is required.", status: 400 });
         }
 
-        const deletedCart = await Cart.findById(id);
+        const cart = await Cart.findById(id);
 
-        if (!deletedCart) {
+        if (!cart) {
             return res.status(404).json({ message: "Cart not found.", status: 404 });
         }
 
-        deletedCart.isDelete = true
+        cart.isDelete = true;
 
-        await deleteCart.save();
+        await cart.save();
 
         res.status(200).json({ message: "Cart deleted successfully.", status: 200 });
 
@@ -78,6 +78,7 @@ export const deleteCart = async (req, res) => {
         res.status(500).json({ message: "Internal server error", status: 500 });
     }
 };
+
 
 // get all cart data from user id 
 export const getAllCartforuser = async (req, res) => {
