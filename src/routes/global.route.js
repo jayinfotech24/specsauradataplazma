@@ -74,7 +74,7 @@ globalRoute.get('/presc/:id',authMiddleware, getPrescription);
 // ORDER ROUTES
 globalRoute.post('/order',authMiddleware,createOrder);
 globalRoute.get('/orders/:id',authMiddleware,getOrders);
-globalRoute.get('/order/:id',authMiddleware,getOrderById);
+globalRoute.get('/order/user/:id',authMiddleware,getOrderById);
 globalRoute.patch('/order/:id',authMiddleware,updateOrder);
 globalRoute.delete('/order/:id',authMiddleware,deleteOrder);
 globalRoute.get('/order/all',authMiddleware,getAllOrders);
