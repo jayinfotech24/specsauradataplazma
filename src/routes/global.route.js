@@ -1,7 +1,7 @@
 import express from "express";
 import { requestOTP } from "../controllers/otp.controller.js";
 import { verifyOTP } from "../controllers/auth.controller.js";
-import { getAllUsers,getUserByID,createUser,updateUser, deleteUser } from "../controllers/user.controller.js"
+import { getAllUsers,getUserByID,createUser,updateUser, deleteUser, getUserInfo } from "../controllers/user.controller.js"
 import { getReference } from "../controllers/ref.controller.js";
 import authMiddleware from "../middleware/auth.middleware.js";
 import { createProduct, deleteProduct, getAllProducts, updateProduct,getProduct } from "../controllers/product.controller.js";
@@ -27,6 +27,7 @@ globalRoute.post("/request",requestOTP);
 globalRoute.post("/verify",verifyOTP);
 
 // USER ROUTE
+globalRoute.get("/user/info",authMiddleware,getUserInfo);
 globalRoute.get("/user/all",authMiddleware,getAllUsers);
 globalRoute.get("/user/:id",authMiddleware,getUserByID);
 globalRoute.delete("/user/:id",authMiddleware,deleteUser);

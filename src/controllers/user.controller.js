@@ -1,5 +1,7 @@
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../constants/api.js";
 import User from "../models/user.model.js";
+import jwt from "jsonwebtoken";
+import otpUser from "../models/otp.model.js";
 
 // Get All users
 export const getAllUsers = async (req,res) => {
@@ -22,6 +24,32 @@ export const getUserByID = async (req,res) => {
         res.status(500).json({message:ERROR_MESSAGE.PROCESS_REQUEST,status: 500})
     }
 }
+
+// get user from auth token 
+export const getUserInfo = async (req, res) => {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ message: ERROR_MESSAGE.UNAUTHORIZED, status: 401 });
+    }
+
+    const token = authHeader.split(' ')[1];
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const mainUser = await User.findOne({ _id: decoded.userId });
+
+        if (!mainUser) {
+            return res.status(404).json({ message: ERROR_MESSAGE.USER_NOT_FOUND, status: 404 });
+        }
+
+        res.status(200).json({ mainUser, status: 200 });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(401).json({ message: ERROR_MESSAGE.UNAUTHORIZED, status: 401 });
+    }
+};
 
 // create new user 
 export const updateUser = async (req,res) => {
