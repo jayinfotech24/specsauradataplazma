@@ -1,4 +1,3 @@
-import items from "razorpay/dist/types/items.js";
 import { MODEL_NAME } from "../constants/DBConst.js";
 import Order from "../models/order.model.js";
 
