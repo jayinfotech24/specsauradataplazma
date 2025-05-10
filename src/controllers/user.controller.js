@@ -51,37 +51,33 @@ export const getUserInfo = async (req, res) => {
     }
 };
 
-// create new user 
-export const updateUser = async (req,res) => {
+export const updateUser = async (req, res) => {
     try {
-        const { name,email,number,address } = req.body;
+        const { name, email, number, address } = req.body;
 
         // check for email 
         if (!email) {
-            return res.status(400).json({message: ERROR_MESSAGE.EMAIL_REQUIRED, status: 400});
+            return res.status(400).json({ message: ERROR_MESSAGE.EMAIL_REQUIRED, status: 400 });
         }
 
-        if (!name || !number || !address ) {
-            return res.status(400).json({message: ERROR_MESSAGE.ALL_FIELDS_REQUIRED, status: 400});
+        const user = await User.findOne({ email: new RegExp(`^${email}$`, 'i') });
+
+        if (!user) {
+            return res.status(404).json({ message: ERROR_MESSAGE.USER_NOT_FOUND, status: 404 });
         }
 
-        const updateUser = await User.findOne({ email: new RegExp(`^${email}$`, 'i') });
+        // update only provided fields
+        if (name !== undefined) user.name = name;
+        if (number !== undefined) user.number = number;
+        if (address !== undefined) user.address = address;
 
-        if (updateUser) {
-            return res.status(400).json({message: ERROR_MESSAGE.USER_NOT_FOUND, status: 400});
-        } else {
-            updateUser.name = name
-            updateUser.number = number
-            updateUser.address = address
-        }
+        await user.save();
 
-        await updateUser.save();
-
-        res.status(201).json({updateUser, status: 201 });
+        res.status(200).json({ user, status: 200 });
     } catch (error) {
         res.status(500).json({ message: ERROR_MESSAGE.PROCESS_REQUEST, status: 500 });
     }
-}
+};
 
 // create new user 
 export const createUser = async (req,res) => {
