@@ -109,6 +109,33 @@ export const deleteManyCarts = async (req, res) => {
     }
 };
 
+export const getManyCarts = async (req, res) => {
+    try {
+        const { ids } = req.body;
+
+        if (!Array.isArray(ids) || ids.length === 0) {
+            return res.status(400).json({ message: "Cart IDs are required in an array.", status: 400 });
+        }
+
+        // Fetch all matching cart items
+        const carts = await Cart.find({ _id: { $in: ids } });
+
+        if (carts.length === 0) {
+            return res.status(404).json({ message: "No matching cart items found.", status: 404 });
+        }
+
+        res.status(200).json({
+            status: 200,
+            items:carts
+        });
+
+    } catch (error) {
+        console.error("Error fetching cart items:", error);
+        res.status(500).json({ message: "Internal server error", status: 500 });
+    }
+};
+
+
 
 // get all cart data from user id 
 export const getAllCartforuser = async (req, res) => {

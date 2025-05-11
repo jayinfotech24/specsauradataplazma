@@ -11,7 +11,7 @@ import { varifyPayment, createRazorOrder } from '../controllers/payment.controll
 import { createWallpaper, updateWallpaper, deleteWallpaper, getAllwallpapers } from'../controllers/wallpaper.controller.js';
 import { createVideo, updateVideo, deleteVideo, getAllVideos } from'../controllers/video.controller.js';
 import { createCategory, updateCategory, deleteCategory, getAllcategory, getCategoryByID } from'../controllers/categories.controller.js';
-import { createCart, updateCart, deleteCart, getAllCartforuser, getSingleCart, deleteManyCarts } from "../controllers/cart.controller.js";
+import { createCart, updateCart, deleteCart, getAllCartforuser, getSingleCart, deleteManyCarts,getManyCarts } from "../controllers/cart.controller.js";
 import { createPrescription, updatePrescription, deletePrescription, getPrescription } from "../controllers/prescription.controller.js";
 import { createOrder, updateOrder, getOrderById, getOrders, deleteOrder, getAllOrders } from "../controllers/order.controller.js";
 import { createBlog, updateBlog, deleteBlog, getAllBlogs, getSingleBlog } from "../controllers/blog.controller.js";
@@ -66,6 +66,7 @@ globalRoute.delete('/cart/:id',authMiddleware,deleteCart);
 globalRoute.delete('/cart/',authMiddleware,deleteManyCarts);
 globalRoute.get('/cart/all/:id',authMiddleware,getAllCartforuser);
 globalRoute.get('/cart/:id',authMiddleware,getSingleCart);
+globalRoute.get('/cart/',authMiddleware,getManyCarts);
 
 // PRESCRIPTION ROUTES
 globalRoute.post('/presc',authMiddleware,createPrescription);
