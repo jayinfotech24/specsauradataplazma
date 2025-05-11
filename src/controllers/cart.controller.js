@@ -79,6 +79,36 @@ export const deleteCart = async (req, res) => {
     }
 };
 
+export const deleteManyCarts = async (req, res) => {
+    try {
+        const { ids } = req.body;
+
+        if (!Array.isArray(ids) || ids.length === 0) {
+            return res.status(400).json({ message: "Cart IDs are required in an array.", status: 400 });
+        }
+
+        // Update all matching cart items by setting isDelete to true
+        const result = await Cart.updateMany(
+            { _id: { $in: ids } },
+            { $set: { isDelete: true } }
+        );
+
+        if (result.matchedCount === 0) {
+            return res.status(404).json({ message: "No matching cart items found.", status: 404 });
+        }
+
+        res.status(200).json({
+            message: "Selected cart items deleted successfully.",
+            status: 200,
+            modifiedCount: result.modifiedCount
+        });
+
+    } catch (error) {
+        console.error("Error deleting cart items:", error);
+        res.status(500).json({ message: "Internal server error", status: 500 });
+    }
+};
+
 
 // get all cart data from user id 
 export const getAllCartforuser = async (req, res) => {
