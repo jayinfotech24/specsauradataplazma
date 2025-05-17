@@ -2,7 +2,7 @@ import express from "express";
 import { requestOTP } from "../controllers/otp.controller.js";
 import { verifyOTP } from "../controllers/auth.controller.js";
 import { getAllUsers,getUserByID,createUser,updateUser, deleteUser, getUserInfo } from "../controllers/user.controller.js"
-import { getReference } from "../controllers/ref.controller.js";
+import { getReference, getDashboardData } from "../controllers/ref.controller.js";
 import authMiddleware from "../middleware/auth.middleware.js";
 import { createProduct, deleteProduct, getAllProducts, updateProduct,getProduct } from "../controllers/product.controller.js";
 import { createContact } from "../controllers/contact.controller.js";
@@ -21,6 +21,7 @@ const globalRoute = express.Router();
 
 // REFERENCE ROUTE
 globalRoute.get("/reference",getReference);
+globalRoute.get("/dashboard",authMiddleware,getDashboardData);
 
 // OTP ROUTE
 globalRoute.post("/request",requestOTP);
