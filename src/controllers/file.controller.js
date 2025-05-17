@@ -17,22 +17,18 @@ cloudinary.config({
 // Multer Storage Configuration
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
-    params: {
+    params: async (req, file) => ({
         folder: 'uploads',
+        resource_type: 'auto', // Automatically detect file type (image, video, raw)
         allowed_formats: [
-            // Image formats
-            'jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'svg', 'ico', 'avif', 
-        
-            // Document formats
-            'pdf', 'txt', 'doc', 'docx', 'odt', 'rtf', 'xls', 'xlsx', 'csv', 'ppt', 'pptx',  
-        
-            // Video formats
+            'jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'svg', 'ico', 'avif',
+            'pdf', 'txt', 'doc', 'docx', 'odt', 'rtf', 'xls', 'xlsx', 'csv', 'ppt', 'pptx',
             'mp4', 'mov', 'avi', 'wmv', 'flv', 'mkv', 'webm'
         ],
-    },
+    }),
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage, limits: { fileSize: 100 * 1024 * 1024 }, });
 
 // Controller Function
 const uploadFile = (req, res) => {
