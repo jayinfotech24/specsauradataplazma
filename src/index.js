@@ -20,7 +20,7 @@ app.use("/api/",globalRoute);
 
 // default route 
 app.get("/",(req,res) => {
-    res.redirect("https://specsaura.vercel.app/");
+    res.redirect("https://specsaura.com/");
 })
 
 app.listen(PORT, () => {
