@@ -13,6 +13,21 @@ export const getAllwallpapers = async (req,res) => {
     }
 }
 
+export const getWallpaperByID = async (req,res) => {
+    try {
+
+        const { id } = req.params
+
+        const wallpaper = await wallpapers.find({ _id: id, isDelete: false });
+
+
+        res.status(200).json({ items: wallpaper, status: 200});
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND , status: 500 });
+    }
+}
+
 
 export const createWallpaper = async (req, res) => {
     try {
