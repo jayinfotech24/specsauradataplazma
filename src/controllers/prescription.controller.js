@@ -110,3 +110,25 @@ export const getPrescription = async (req, res) => {
         res.status(500).json({ message: "Internal server error", status: 500 });
     }
 }
+
+export const updatePrescriptionFlag = async (req, res) => {
+    try {
+        const { id } = req.params; // Get prescription ID from URL params
+        
+        const updatedPrescription = await Prescription.findById(id);
+
+        if (!updatedPrescription) {
+            return res.status(404).json({ message: "Prescription not found.", status: 404 });
+        }
+
+        updatedPrescription.isAllDataAdded = true
+
+        await updatedPrescription.save();
+
+        res.status(200).json({ prescription: updatedPrescription, status: 200 });
+
+    } catch (error) {
+        console.error("Error updating prescription:", error);
+        res.status(500).json({ message: "Internal server error", status: 500 });
+    }
+};
