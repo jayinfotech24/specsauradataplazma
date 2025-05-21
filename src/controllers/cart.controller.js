@@ -172,3 +172,25 @@ export const getSingleCart = async (req, res) => {
         res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 })
     }
 }
+
+export const updateCartFlag = async (req, res) => {
+    try {
+        const { id } = req.params; // Get prescription ID from URL params
+        
+        const updatedCart = await Cart.findById(id);
+
+        if (!updatedCart) {
+            return res.status(404).json({ message: "Cart not found.", status: 404 });
+        }
+
+        updatedCart.isAllDataAdded = true
+
+        await updatedCart.save();
+
+        res.status(200).json({ prescription: updatedCart, status: 200 });
+
+    } catch (error) {
+        console.error("Error updating cart:", error);
+        res.status(500).json({ message: "Internal server error", status: 500 });
+    }
+};

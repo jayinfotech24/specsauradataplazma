@@ -11,8 +11,8 @@ import { varifyPayment, createRazorOrder } from '../controllers/payment.controll
 import { createWallpaper, updateWallpaper, deleteWallpaper, getAllwallpapers,getWallpaperByID } from'../controllers/wallpaper.controller.js';
 import { createVideo, updateVideo, deleteVideo, getAllVideos, getVideoByID } from'../controllers/video.controller.js';
 import { createCategory, updateCategory, deleteCategory, getAllcategory, getCategoryByID } from'../controllers/categories.controller.js';
-import { createCart, updateCart, deleteCart, getAllCartforuser, getSingleCart, deleteManyCarts,getManyCarts } from "../controllers/cart.controller.js";
-import { createPrescription, updatePrescription, deletePrescription, getPrescription,updatePrescriptionFlag } from "../controllers/prescription.controller.js";
+import { createCart, updateCart, deleteCart, getAllCartforuser, getSingleCart, deleteManyCarts,getManyCarts,updateCartFlag } from "../controllers/cart.controller.js";
+import { createPrescription, updatePrescription, deletePrescription, getPrescription } from "../controllers/prescription.controller.js";
 import { createOrder, updateOrder, getOrderById, getOrders, deleteOrder, getAllOrders } from "../controllers/order.controller.js";
 import { createBlog, updateBlog, deleteBlog, getAllBlogs, getSingleBlog } from "../controllers/blog.controller.js";
 import { adminLogin } from "../controllers/admin.controller.js";
@@ -63,6 +63,7 @@ globalRoute.delete("/video/:id",authMiddleware,deleteVideo);
 // CART ROUTES
 globalRoute.post('/cart',authMiddleware,createCart);
 globalRoute.patch('/cart/:id',authMiddleware,updateCart);
+globalRoute.patch('/cart/flag/:id',authMiddleware,updateCartFlag);
 globalRoute.delete('/cart/:id',authMiddleware,deleteCart);
 globalRoute.delete('/cart/',authMiddleware,deleteManyCarts);
 globalRoute.get('/cart/all/:id',authMiddleware,getAllCartforuser);
@@ -72,7 +73,6 @@ globalRoute.get('/cart/',authMiddleware,getManyCarts);
 // PRESCRIPTION ROUTES
 globalRoute.post('/presc',authMiddleware,createPrescription);
 globalRoute.patch('/presc/:id',authMiddleware,updatePrescription);
-globalRoute.patch('/presc/flag/:id',authMiddleware,updatePrescriptionFlag);
 globalRoute.delete('/presc/:id',authMiddleware,deletePrescription);
 globalRoute.get('/presc/:id',authMiddleware, getPrescription);
 
