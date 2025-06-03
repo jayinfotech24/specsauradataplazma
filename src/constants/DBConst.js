@@ -10,5 +10,6 @@ export const MODEL_NAME = Object.freeze({
     WALLPAPERS: 'Wallpapers',
     ORDER: 'Order',
     BLOGS: 'Blogs',
-    ADMIN: 'Admin'
+    ADMIN: 'Admin',
+    LENS_TYPE: 'LensType'
 })

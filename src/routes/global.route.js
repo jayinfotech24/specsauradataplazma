@@ -16,6 +16,7 @@ import { createPrescription, updatePrescription, deletePrescription, getPrescrip
 import { createOrder, updateOrder, getOrderById, getOrders, deleteOrder, getAllOrders } from "../controllers/order.controller.js";
 import { createBlog, updateBlog, deleteBlog, getAllBlogs, getSingleBlog } from "../controllers/blog.controller.js";
 import { adminLogin } from "../controllers/admin.controller.js";
+import { createLnsType,getAllLansesForSingleType,getAllTypes,updateLanseType,deleteLansetype } from "../controllers/lensType.controller.js"
 
 const globalRoute = express.Router();
 
@@ -42,6 +43,12 @@ globalRoute.get("/product/:id",getProduct);
 globalRoute.delete("/product/:id",authMiddleware,deleteProduct);
 globalRoute.patch("/product/:id",authMiddleware,updateProduct);
 
+// Lense Types Route
+globalRoute.get("/lens/",getAllTypes); 
+globalRoute.get("/lens/:lensMainType", getAllLansesForSingleType); 
+globalRoute.post("/lens/", authMiddleware, createLnsType); 
+globalRoute.patch("/lens/:id", authMiddleware,updateLanseType); 
+globalRoute.delete("/lens/:id",authMiddleware, deleteLansetype); 
 
 // PAYMENT ROUTE 
 globalRoute.post("/createPaymentOrder",authMiddleware,createRazorOrder);
