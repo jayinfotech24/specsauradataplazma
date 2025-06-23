@@ -1,5 +1,6 @@
 import { MODEL_NAME } from "../constants/DBConst.js";
 import LensType from "../models/lensType.model.js";
+import Coating from "../models/coating.model.js";
 
 export const createLnsType = async (req, res) => {
     try {
@@ -36,30 +37,61 @@ export const getAllTypes = async (req, res) => {
             return res.status(404).json({ message: "No lens types found", status: 404 });
         }
 
-        res.status(200).json({ items: lensTypes, status: 200 });
+        // For each lensType, find its related coatings
+        const lensTypesWithCoatings = await Promise.all(
+            lensTypes.map(async (lensType) => {
+                const coatings = await Coating.find({
+                    lens: lensType._id,
+                    isDelete: false
+                });
+
+                return {
+                    ...lensType.toObject(),
+                    coatings // add coatings array
+                };
+            })
+        );
+
+        res.status(200).json({ items: lensTypesWithCoatings, status: 200 });
     } catch (err) {
         res.status(500).json({ error: err.message, status: 500 });
     }
-}
+};
 
 export const getAllLansesForSingleType = async (req, res) => {
     try {
         const lensMainType = req.params.lensMainType?.trim();
+
         if (!lensMainType) {
-            return res.status(400).json({ error: "lensMainType is required", status: 400  });
+            return res.status(400).json({ error: "lensMainType is required", status: 400 });
         }
 
         const lensTypes = await LensType.find({ lensMainType, isDelete: false });
 
         if (!lensTypes || lensTypes.length === 0) {
-            return res.status(404).json({ message: "No lens types found for given lensMainType", status: 404  });
+            return res.status(404).json({ message: "No lens types found for given lensMainType", status: 404 });
         }
 
-        res.status(200).json({lensTypes,status: 200 });
+        // Add coatings array for each lensType
+        const lensTypesWithCoatings = await Promise.all(
+            lensTypes.map(async (lensType) => {
+                const coatings = await Coating.find({
+                    lens: lensType._id,
+                    isDelete: false
+                });
+
+                return {
+                    ...lensType.toObject(),
+                    coatings
+                };
+            })
+        );
+
+        res.status(200).json({ lensTypes: lensTypesWithCoatings, status: 200 });
     } catch (err) {
-        res.status(500).json({ error: err.message, status: 500  });
+        res.status(500).json({ error: err.message, status: 500 });
     }
-}
+};
 
 export const updateLanseType = async (req, res) => {
     try {
