@@ -1,4 +1,4 @@
-function generateOrderEmail({ orderId, items, totalPrice, customerName }) {
+export function generateOrderEmail({ orderId, items, totalPrice, customerName }) {
     const itemsRows = items.map(item => {
         return `
             <tr>

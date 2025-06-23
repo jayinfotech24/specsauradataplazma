@@ -2,7 +2,7 @@ import { google } from "googleapis";
 import nodemailer from "nodemailer";
 
 // Send OTP via email
-export const sendEmail = async (email, htmlTemp) => {
+export const sendEmail = async (email, htmlTemp, subject) => {
 
     const oAuth2Client = new google.auth.OAuth2(process.env.CLIENT_ID, process.env.CLIENT_SECRET, process.env.REDIRECT_URI);
     oAuth2Client.setCredentials({ refresh_token: process.env.CLIENT_REFRESH_TOKEN });
@@ -25,7 +25,7 @@ export const sendEmail = async (email, htmlTemp) => {
     const emailOtpData = {
         from: "no-reply@SpecsAura",
         to: email,
-        subject: `SpeacAura Login OTP for ${new Date().toLocaleDateString()}`,
+        subject: subject,
         html: htmlTemp,
     };
 

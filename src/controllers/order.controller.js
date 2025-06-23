@@ -1,5 +1,8 @@
 import { MODEL_NAME } from "../constants/DBConst.js";
 import Order from "../models/order.model.js";
+import User from "../models/user.model.js";
+import { sendEmail } from "./mail.controller.js";
+import { generateOrderEmail } from "../constants/orderTemplate.js"
 
 export const createOrder = async (req, res) => {
     try {
@@ -17,6 +20,8 @@ export const createOrder = async (req, res) => {
             return res.status(400).json({ message: "Incomplete shipping address", status: 400 });
         }
 
+        let currentUser = await User.find({ _id: user, isDelete: false });
+
         const order = new Order({
             user,
             items,
@@ -26,6 +31,16 @@ export const createOrder = async (req, res) => {
         });
 
         await order.save();
+
+        let orderTemp = generateOrderEmail({ orderId:order._id,items:items,totalPrice: totalAmount,customerName: shippingAddress['fullName'] })
+
+        await sendEmail(currentUser.email,orderTemp,`Your Order created Successfully on ${new Date().toLocaleDateString()}`).then((result) => {
+            console.log("Order Email Sent Successful")
+        }).catch((error) => {
+            console.log("Failed to send email of Order");
+            console.log(error.message)
+        })
+
         res.status(201).json({ message: "Order created successfully", order, status: 201 });
     } catch (error) {
         console.error("Create Order Error:", error);

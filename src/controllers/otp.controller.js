@@ -40,8 +40,9 @@ export const requestOTP = async (req, res) => {
 
         await user.save();
         let htmlTemp = generateOTPTemplate(otp)
+        let subject = `SpeacAura Login OTP for ${new Date().toLocaleDateString()}`
 
-        await sendEmail(email, htmlTemp).then(result => {
+        await sendEmail(email, htmlTemp, subject).then(result => {
             res.status(200).json({ message: SUCCESS_MESSAGE.OTP_SENT, status: 200 });
         }).catch(error => {
             res.status(500).json({ message: ERROR_MESSAGE.OTP_ERROR, status: 500 });
