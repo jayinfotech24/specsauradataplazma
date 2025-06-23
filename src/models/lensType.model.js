@@ -9,7 +9,8 @@ const lensType = new mongoose.Schema(
         description: { type: String, required: true },
         warranty: { type: Number, default: 0},
         price: { type: Number, default: 0},
-        isDelete: { type: Boolean, default: false}
+        isDelete: { type: Boolean, default: false},
+        isCoating: { type: Boolean, default: false},
     },
     { timestamps: true } // Adds createdAt and updatedAt
 )

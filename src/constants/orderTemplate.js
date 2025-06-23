@@ -1,4 +1,4 @@
-function generateOrderEmail({ orderId, items, totalPrice, customerName, supportUrl }) {
+function generateOrderEmail({ orderId, items, totalPrice, customerName }) {
     const itemsRows = items.map(item => {
         return `
             <tr>
@@ -62,7 +62,7 @@ function generateOrderEmail({ orderId, items, totalPrice, customerName, supportU
                             </tr>
                             <tr>
                                 <td style="padding-top: 24px; text-align: center;">
-                                    <p style="font-size: 15px;">Have questions? <a href="${supportUrl}"
+                                    <p style="font-size: 15px;">Have questions? <a href="mailto:specsauraworks@gmail.com"
                                         style="color: #0066cc; text-decoration: none; font-weight: 500;">Contact our support team</a> through our website. We're happy to help!</p>
                                     <p style="margin-top: 16px; font-size: 15px;">Thanks again,<br><strong>The Specsaura Team</strong></p>
                                 </td>

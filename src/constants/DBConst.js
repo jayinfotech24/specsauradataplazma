@@ -11,5 +11,6 @@ export const MODEL_NAME = Object.freeze({
     ORDER: 'Order',
     BLOGS: 'Blogs',
     ADMIN: 'Admin',
-    LENS_TYPE: 'LensType'
+    LENS_TYPE: 'LensType',
+    COATING: 'COATING'
 })

@@ -17,6 +17,13 @@ import { createOrder, updateOrder, getOrderById, getOrders, deleteOrder, getAllO
 import { createBlog, updateBlog, deleteBlog, getAllBlogs, getSingleBlog } from "../controllers/blog.controller.js";
 import { adminLogin } from "../controllers/admin.controller.js";
 import { createLnsType,getAllLansesForSingleType,getAllTypes,updateLanseType,deleteLansetype } from "../controllers/lensType.controller.js"
+import {
+     getAllCoatings,
+    getAllCoatingForSingleTypeLens,
+    createCoating,
+    updateCoating,
+    deleteCoating
+} from "../controllers/coating.controller.js";
 
 const globalRoute = express.Router();
 
@@ -49,6 +56,13 @@ globalRoute.get("/lens/:lensMainType", getAllLansesForSingleType);
 globalRoute.post("/lens/", authMiddleware, createLnsType); 
 globalRoute.patch("/lens/:id", authMiddleware,updateLanseType); 
 globalRoute.delete("/lens/:id",authMiddleware, deleteLansetype); 
+
+// Lens Coating Route 
+globalRoute.get("/coating/",getAllCoatings); 
+globalRoute.get("/coating/:lensMainType", getAllCoatingForSingleTypeLens); 
+globalRoute.post("/coating/", authMiddleware, createCoating); 
+globalRoute.patch("/coating/:id", authMiddleware,updateCoating); 
+globalRoute.delete("/coating/:id",authMiddleware, deleteCoating); 
 
 // PAYMENT ROUTE 
 globalRoute.post("/createPaymentOrder",authMiddleware,createRazorOrder);
