@@ -147,7 +147,7 @@ export const getAllCartforuser = async (req, res) => {
         .populate("prescriptionID")
         .populate("productID")
         .populate("lensCoating")
-        .populate("lesnsType")
+        .populate("lensType")
         .exec();
 
         res.status(200).json({ items: carts, status: 200});
@@ -167,12 +167,13 @@ export const getSingleCart = async (req, res) => {
         .populate("prescriptionID")
         .populate("productID")
         .populate("lensCoating")
-        .populate("lesnsType")
+        .populate("lensType")
         .exec();
 
         res.status(200).json({ carts, status: 200 });
 
     } catch (error) {
+        console.log(error.message)
         res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 })
     }
 }
