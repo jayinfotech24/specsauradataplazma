@@ -146,6 +146,8 @@ export const getAllCartforuser = async (req, res) => {
         const carts = await Cart.find({ userID: id, isDelete: false })
         .populate("prescriptionID")
         .populate("productID")
+        .populate("lensCoating")
+        .populate("lesnsType")
         .exec();
 
         res.status(200).json({ items: carts, status: 200});
@@ -164,6 +166,8 @@ export const getSingleCart = async (req, res) => {
         const carts = await Cart.findOne({ _id: id,isDelete: false })
         .populate("prescriptionID")
         .populate("productID")
+        .populate("lensCoating")
+        .populate("lesnsType")
         .exec();
 
         res.status(200).json({ carts, status: 200 });

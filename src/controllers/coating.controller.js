@@ -34,13 +34,13 @@ export const getAllCoatingForSingleTypeLens = async (req, res) => {
 // POST create a new coating
 export const createCoating = async (req, res) => {
     try {
-        const { title, description, lens } = req.body;
+        const { title, description, isDelete, lens, price } = req.body;
 
-        if (!title || !lens) {
-            return res.status(400).json({ error: "Title and lens are required", status: 400 });
+        if (!title || !lens || !price) {
+            return res.status(400).json({ error: "Title, price and lens are required", status: 400 });
         }
 
-        const newCoating = new Coating({ title, description, lens });
+        const newCoating = new Coating({ title, description, isDelete, price, lens });
         await newCoating.save();
 
         res.status(201).json({ message: "Coating created successfully", coating: newCoating, status: 201 });
