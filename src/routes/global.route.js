@@ -133,7 +133,7 @@ globalRoute.get("/lens/:lensMainType", getAllLansesForSingleType);
 globalRoute.post("/lens/", authMiddleware, createLnsType); 
 globalRoute.patch("/lens/:id", authMiddleware,updateLanseType); 
 globalRoute.delete("/lens/:id",authMiddleware, deleteLansetype); 
-globalRoute.get("/lens/:id", getSingleLensType); 
+globalRoute.get("/lens/single/:id", getSingleLensType); 
 
 // Lens Coating Route 
 globalRoute.get("/coating/",getAllCoatings); 
