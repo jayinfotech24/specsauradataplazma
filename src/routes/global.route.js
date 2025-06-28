@@ -1,28 +1,105 @@
 import express from "express";
 import { requestOTP } from "../controllers/otp.controller.js";
 import { verifyOTP } from "../controllers/auth.controller.js";
-import { getAllUsers,getUserByID,createUser,updateUser, deleteUser, getUserInfo } from "../controllers/user.controller.js"
-import { getReference, getDashboardData } from "../controllers/ref.controller.js";
 import authMiddleware from "../middleware/auth.middleware.js";
-import { createProduct, deleteProduct, getAllProducts, updateProduct,getProduct } from "../controllers/product.controller.js";
-import { createContact } from "../controllers/contact.controller.js";
-import { upload, uploadFile, uploadMultiple, uploadMultipleFiles } from '../controllers/file.controller.js';
-import { varifyPayment, createRazorOrder } from '../controllers/payment.controller.js';
-import { createWallpaper, updateWallpaper, deleteWallpaper, getAllwallpapers,getWallpaperByID } from'../controllers/wallpaper.controller.js';
-import { createVideo, updateVideo, deleteVideo, getAllVideos, getVideoByID } from'../controllers/video.controller.js';
-import { createCategory, updateCategory, deleteCategory, getAllcategory, getCategoryByID } from'../controllers/categories.controller.js';
-import { createCart, updateCart, deleteCart, getAllCartforuser, getSingleCart, deleteManyCarts,getManyCarts,updateCartFlag } from "../controllers/cart.controller.js";
-import { createPrescription, updatePrescription, deletePrescription, getPrescription } from "../controllers/prescription.controller.js";
-import { createOrder, updateOrder, getOrderById, getOrders, deleteOrder, getAllOrders } from "../controllers/order.controller.js";
-import { createBlog, updateBlog, deleteBlog, getAllBlogs, getSingleBlog } from "../controllers/blog.controller.js";
 import { adminLogin } from "../controllers/admin.controller.js";
-import { createLnsType,getAllLansesForSingleType,getAllTypes,updateLanseType,deleteLansetype } from "../controllers/lensType.controller.js"
+import { createContact } from "../controllers/contact.controller.js";
+import { 
+    getAllUsers,
+    getUserByID,
+    createUser,
+    updateUser, 
+    deleteUser, 
+    getUserInfo 
+} from "../controllers/user.controller.js"
+import { 
+    getReference, 
+    getDashboardData 
+} from "../controllers/ref.controller.js";
+import { 
+    createProduct, 
+    deleteProduct, 
+    getAllProducts, 
+    updateProduct,
+    getProduct 
+} from "../controllers/product.controller.js";
+import { 
+    upload, 
+    uploadFile, 
+    uploadMultiple, 
+    uploadMultipleFiles 
+} from '../controllers/file.controller.js';
+import { 
+    varifyPayment, 
+    createRazorOrder 
+} from '../controllers/payment.controller.js';
+import { 
+    createWallpaper, 
+    updateWallpaper, 
+    deleteWallpaper, 
+    getAllwallpapers,
+    getWallpaperByID 
+} from'../controllers/wallpaper.controller.js';
+import { 
+    createVideo, 
+    updateVideo, 
+    deleteVideo, 
+    getAllVideos, 
+    getVideoByID
+} from'../controllers/video.controller.js';
+import { 
+    createCategory, 
+    updateCategory, 
+    deleteCategory, 
+    getAllcategory, 
+    getCategoryByID 
+} from'../controllers/categories.controller.js';
+import { 
+    createCart, 
+    updateCart, 
+    deleteCart, 
+    getAllCartforuser, 
+    getSingleCart, 
+    deleteManyCarts,
+    getManyCarts,
+    updateCartFlag
+} from "../controllers/cart.controller.js";
+import { 
+    createPrescription,
+    updatePrescription,
+    deletePrescription,
+    getPrescription
+} from "../controllers/prescription.controller.js";
+import { 
+    createOrder,
+    updateOrder, 
+    getOrderById, 
+    getOrders, 
+    deleteOrder, 
+    getAllOrders 
+} from "../controllers/order.controller.js";
+import { 
+    createBlog, 
+    updateBlog, 
+    deleteBlog, 
+    getAllBlogs, 
+    getSingleBlog 
+} from "../controllers/blog.controller.js";
+import { 
+    createLnsType,
+    getAllLansesForSingleType,
+    getAllTypes,
+    updateLanseType,
+    deleteLansetype,
+    getSingleLensType 
+} from "../controllers/lensType.controller.js"
 import {
      getAllCoatings,
     getAllCoatingForSingleTypeLens,
     createCoating,
     updateCoating,
-    deleteCoating
+    deleteCoating,
+    getSingleCoating
 } from "../controllers/coating.controller.js";
 
 const globalRoute = express.Router();
@@ -56,6 +133,7 @@ globalRoute.get("/lens/:lensMainType", getAllLansesForSingleType);
 globalRoute.post("/lens/", authMiddleware, createLnsType); 
 globalRoute.patch("/lens/:id", authMiddleware,updateLanseType); 
 globalRoute.delete("/lens/:id",authMiddleware, deleteLansetype); 
+globalRoute.get("/lens/:id", getSingleLensType); 
 
 // Lens Coating Route 
 globalRoute.get("/coating/",getAllCoatings); 
@@ -63,6 +141,7 @@ globalRoute.get("/coating/:lensMainType", getAllCoatingForSingleTypeLens);
 globalRoute.post("/coating/", authMiddleware, createCoating); 
 globalRoute.patch("/coating/:id", authMiddleware,updateCoating); 
 globalRoute.delete("/coating/:id",authMiddleware, deleteCoating); 
+globalRoute.get("/coating/single/:id", getSingleCoating); 
 
 // PAYMENT ROUTE 
 globalRoute.post("/createPaymentOrder",authMiddleware,createRazorOrder);

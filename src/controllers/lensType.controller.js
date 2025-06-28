@@ -58,6 +58,25 @@ export const getAllTypes = async (req, res) => {
     }
 };
 
+export const getSingleLensType = async (req, res) => {
+    try {
+        const { id } = req.params; // Extract ID from request parameters
+
+        // Find lens type by ID
+        const lensType = await LensType.findById(id);
+
+        if (!lensType) {
+            return res.status(404).json({ message: 'Lens type not found', status: 404 });
+        }
+
+        // Respond with the lens type details
+        res.status(200).json({ lensType, status: 200 });
+    } catch (error) {
+        console.error('Error fetching lens type:', error);
+        res.status(500).json({ message: 'Internal server error', status: 500 });
+    }
+};
+
 export const getAllLansesForSingleType = async (req, res) => {
     try {
         const lensMainType = req.params.lensMainType?.trim();

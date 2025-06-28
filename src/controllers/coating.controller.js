@@ -10,6 +10,25 @@ export const getAllCoatings = async (req, res) => {
     }
 };
 
+export const getSingleCoating = async (req, res) => {
+    try {
+        const { id } = req.params; // Extract ID from request parameters
+
+        // Find coating by ID
+        const coating = await Coating.findById(id);
+
+        if (!coating) {
+            return res.status(404).json({ message: 'Coating not found', status: 404 });
+        }
+
+        // Respond with the coating details
+        res.status(200).json({ coating, status: 200 });
+    } catch (error) {
+        console.error('Error fetching coating:', error);
+        res.status(500).json({ message: 'Internal server error', status: 500 });
+    }
+};
+
 // GET all coatings for a specific lens type
 export const getAllCoatingForSingleTypeLens = async (req, res) => {
     try {
