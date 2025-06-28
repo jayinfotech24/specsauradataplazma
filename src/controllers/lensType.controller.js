@@ -13,9 +13,7 @@ export const createLnsType = async (req, res) => {
         if (!name?.trim()) {
             return res.status(400).json({ error: "name is required", status: 400 });
         }
-        if (!imageURL?.trim()) {
-            return res.status(400).json({ error: "imageURL is required", status: 400 });
-        }
+
         if (!description?.trim()) {
             return res.status(400).json({ error: "description is required", status: 400 });
         }
@@ -123,9 +121,7 @@ export const updateLanseType = async (req, res) => {
         if (name !== undefined && !name.trim()) {
             return res.status(400).json({ error: "name cannot be empty", status: 400  });
         }
-        if (imageURL !== undefined && !imageURL.trim()) {
-            return res.status(400).json({ error: "imageURL cannot be empty", status: 400  });
-        }
+
         if (description !== undefined && !description.trim()) {
             return res.status(400).json({ error: "description cannot be empty", status: 400  });
         }
