@@ -21,7 +21,7 @@ export function generateOTPTemplate(otp) {
               <tr>
                 <td style="padding: 40px 0px 0px;">
                   <div style="text-align: center;">
-                    <div style="padding-bottom: 20px;"><img src="https://i.ibb.co/q2Jqx0k/Group-26.png" alt="SpecsAura" style="width: 142px;">
+                    <div style="padding-bottom: 20px;"><img src="https://res.cloudinary.com/dbujlyfyn/image/upload/v1745037884/uploads/mcueefshi08tjnzydxx4.png" alt="SpecsAura" style="width: 142px;">
                     </div>
                   </div>
                   <div style="padding: 20px; background-color: rgb(255, 255, 255);">

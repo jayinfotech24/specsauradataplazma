@@ -12,8 +12,17 @@ const coatingSchema = new mongoose.Schema(
             ref: MODEL_NAME.LENS_TYPE
         }
     },
-    { timestamps: true } // Adds createdAt and updatedAt
-)
+    { timestamps: true }
+);
+
+// Pre-save hook to add 2% to price
+coatingSchema.pre("save", function (next) {
+    if (this.isNew && typeof this.price === "number") {
+        this.price = Math.round(this.price * 1.02); // add 2% and convert to INT
+    }
+    next();
+});
+
 
 const Coating = mongoose.model(MODEL_NAME.COATING, coatingSchema);
 
