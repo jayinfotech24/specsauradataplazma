@@ -6,7 +6,7 @@ import { generateOrderEmail } from "../constants/orderTemplate.js"
 
 export const createOrder = async (req, res) => {
     try {
-        const { user, items, totalAmount, paymentMethod, shippingAddress } = req.body;
+        const { user, items, totalAmount, paymentStatus, paymentMethod, shippingAddress } = req.body;
 
         // Basic validations
         if (!user || !items || !Array.isArray(items) || items.length === 0 || !totalAmount || !paymentMethod || !shippingAddress) {
@@ -26,15 +26,16 @@ export const createOrder = async (req, res) => {
             user,
             items,
             totalAmount,
+            paymentStatus,
             paymentMethod,
             shippingAddress
         });
 
         await order.save();
 
-        let orderTemp = generateOrderEmail({ orderId:order._id,items:items,totalPrice: totalAmount,customerName: shippingAddress['fullName'] })
+        let orderTemp = generateOrderEmail({ orderId: order._id, items: items, totalPrice: totalAmount, customerName: shippingAddress['fullName'] })
 
-        await sendEmail(currentUser.email,orderTemp,`Your Order created Successfully on ${new Date().toLocaleDateString()}`).then((result) => {
+        await sendEmail(currentUser.email, orderTemp, `Your Order created Successfully on ${new Date().toLocaleDateString()}`).then((result) => {
             console.log("Order Email Sent Successful")
         }).catch((error) => {
             console.log("Failed to send email of Order");
@@ -53,20 +54,44 @@ export const getAllOrders = async (req, res) => {
         const orders = await Order.find({ isDelete: false })
             .populate({
                 path: "items.product",
-                model: MODEL_NAME.PRODUCT
+                model: MODEL_NAME.PRODUCT,
+                populate: [
+                    {
+                        path: "category",
+                        model: MODEL_NAME.CATEGORY
+                    }
+                ]
             })
             .populate({
                 path: "items.prescription",
                 model: MODEL_NAME.PRESCRIPTION
             })
             .populate({
-                path:"items.cart",
-                model: MODEL_NAME.CART
+                path: "items.cart",
+                model: MODEL_NAME.CART,
+                populate: [
+                    {
+                        path: "prescriptionID",
+                        model: MODEL_NAME.PRESCRIPTION
+                    },
+                    {
+                        path: "productID",
+                        model: MODEL_NAME.PRODUCT
+                    },
+                    {
+                        path: "lensCoating",
+                        model: MODEL_NAME.COATING
+                    },
+                    {
+                        path: "lensType",
+                        model: MODEL_NAME.LENS_TYPE
+                    }
+                ]
             })
             .populate("user")
             .exec();
 
-        res.status(200).json({items: orders, status: 200});
+        res.status(200).json({ items: orders, status: 200 });
     } catch (error) {
         res.status(500).json({ message: error.message, status: 500 });
     }
@@ -79,21 +104,45 @@ export const getOrders = async (req, res) => {
             return res.status(400).json({ message: "User ID is required", status: 400 });
         }
 
-        const orders = await Order.find({ user: id,isDelete: false })
-        .populate({
-            path: "items.product",
-            model: MODEL_NAME.PRODUCT
-        })
-        .populate({
-            path: "items.prescription",
-            model: MODEL_NAME.PRESCRIPTION
-        })
-        .populate({
-            path:"items.cart",
-            model: MODEL_NAME.CART
-        })
-        .exec();
-        res.status(200).json({ items: orders, status: 200});
+        const orders = await Order.find({ user: id, isDelete: false })
+            .populate({
+                path: "items.product",
+                model: MODEL_NAME.PRODUCT,
+                populate: [
+                    {
+                        path: "category",
+                        model: MODEL_NAME.CATEGORY
+                    }
+                ]
+            })
+            .populate({
+                path: "items.prescription",
+                model: MODEL_NAME.PRESCRIPTION
+            })
+            .populate({
+                path: "items.cart",
+                model: MODEL_NAME.CART,
+                populate: [
+                    {
+                        path: "prescriptionID",
+                        model: MODEL_NAME.PRESCRIPTION
+                    },
+                    {
+                        path: "productID",
+                        model: MODEL_NAME.PRODUCT
+                    },
+                    {
+                        path: "lensCoating",
+                        model: MODEL_NAME.COATING
+                    },
+                    {
+                        path: "lensType",
+                        model: MODEL_NAME.LENS_TYPE
+                    }
+                ]
+            })
+            .exec();
+        res.status(200).json({ items: orders, status: 200 });
     } catch (error) {
         res.status(500).json({ message: error.message, status: 500 });
     }
@@ -101,24 +150,48 @@ export const getOrders = async (req, res) => {
 
 export const getOrderById = async (req, res) => {
     try {
-        const { id } = req.params 
-        const order = await Order.findOne({ _id: id, isDelete: false})
-        .populate("user")
-        .populate({
-            path: "items.product",
-            model: MODEL_NAME.PRODUCT
-        })
-        .populate({
-            path: "items.prescription",
-            model: MODEL_NAME.PRESCRIPTION
-        })
-        .populate({
-            path:"items.cart",
-            model: MODEL_NAME.CART
-        })
-        .exec();
+        const { id } = req.params
+        const order = await Order.findOne({ _id: id, isDelete: false })
+            .populate("user")
+            .populate({
+                path: "items.product",
+                model: MODEL_NAME.PRODUCT,
+                populate: [
+                    {
+                        path: "category",
+                        model: MODEL_NAME.CATEGORY
+                    }
+                ]
+            })
+            .populate({
+                path: "items.prescription",
+                model: MODEL_NAME.PRESCRIPTION
+            })
+            .populate({
+                path: "items.cart",
+                model: MODEL_NAME.CART,
+                populate: [
+                    {
+                        path: "prescriptionID",
+                        model: MODEL_NAME.PRESCRIPTION
+                    },
+                    {
+                        path: "productID",
+                        model: MODEL_NAME.PRODUCT
+                    },
+                    {
+                        path: "lensCoating",
+                        model: MODEL_NAME.COATING
+                    },
+                    {
+                        path: "lensType",
+                        model: MODEL_NAME.LENS_TYPE
+                    }
+                ]
+            })
+            .exec();
         if (!order) return res.status(404).json({ error: "Order not found", status: 404 });
-        res.status(200).json({ order, status: 200});
+        res.status(200).json({ order, status: 200 });
     } catch (error) {
         res.status(500).json({ error: error.message, status: 500 });
     }
@@ -127,10 +200,10 @@ export const getOrderById = async (req, res) => {
 
 export const updateOrder = async (req, res) => {
     try {
-        const { id } = req.params 
+        const { id } = req.params
         const order = await Order.findByIdAndUpdate(id, req.body, { new: true });
         if (!order) return res.status(404).json({ error: "Order not found", status: 404 });
-        res.status(200).json({ order, status: 200});
+        res.status(200).json({ order, status: 200 });
     } catch (error) {
         res.status(400).json({ error: error.message, status: 400 });
     }
@@ -139,7 +212,7 @@ export const updateOrder = async (req, res) => {
 
 export const deleteOrder = async (req, res) => {
     try {
-        const { id } = req.params 
+        const { id } = req.params
         const order = await Order.findById(id);
         if (!order) return res.status(404).json({ message: "Order not found", status: 404 });
 
