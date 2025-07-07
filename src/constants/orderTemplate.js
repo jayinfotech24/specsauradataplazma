@@ -4,24 +4,24 @@ export function generateOrderEmail({ orderId, items, totalPrice, customerName, s
         const lensType = item.cart?.lensType;
         const lensCoating = item.cart?.lensCoating;
         const prescription = item.prescription;
-        
+
         // Calculate item total including lens and coating
         const basePrice = product.price || 0;
         const lensPrice = lensType?.price || 0;
         const coatingPrice = lensCoating?.price || 0;
         const itemTotal = (basePrice + lensPrice + coatingPrice) * item.quantity;
-        
+
         // Generate prescription details if available
         let prescriptionDetails = '';
         if (prescription) {
             const rightEye = prescription.rightEye;
             const leftEye = prescription.leftEye;
             const prescriptionURL = prescription.prescriptionURL;
-            
+
             // Check if there's actual prescription data
             const hasPrescriptionData = (rightEye && (rightEye.sphere || rightEye.cylinder || rightEye.axis || rightEye.add || rightEye.pd)) ||
-                                      (leftEye && (leftEye.sphere || leftEye.cylinder || leftEye.axis || leftEye.add || leftEye.pd));
-            
+                (leftEye && (leftEye.sphere || leftEye.cylinder || leftEye.axis || leftEye.add || leftEye.pd));
+
             if (hasPrescriptionData) {
                 // Show actual prescription data
                 prescriptionDetails = `
@@ -59,7 +59,7 @@ export function generateOrderEmail({ orderId, items, totalPrice, customerName, s
                 `;
             }
         }
-        
+
         return `
             <tr>
                 <td style="padding: 12px; border: 1px solid #ddd; vertical-align: top;">

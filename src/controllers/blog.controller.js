@@ -16,7 +16,7 @@ export const getAllBlogs = async (req, res) => {
 export const getSingleBlog = async (req, res) => {
     try {
         const { id } = req.params;
-        const blog = await Blog.findOne({ _id:id, isDelete: false});
+        const blog = await Blog.findOne({ _id: id, isDelete: false });
 
         if (blog) {
             res.status(200).json({ blog, status: 200 });

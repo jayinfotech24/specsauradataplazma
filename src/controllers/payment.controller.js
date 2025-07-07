@@ -34,7 +34,7 @@ export const varifyPayment = async (req, res) => {
     const generated_signature = hmac.digest('hex');
 
     if (generated_signature === razorpay_signature) {
-        res.status(200).json({ status: 200, message: SUCCESS_MESSAGE.PAYMENT_VARIFIED});
+        res.status(200).json({ status: 200, message: SUCCESS_MESSAGE.PAYMENT_VARIFIED });
     } else {
         res.status(400).json({ message: ERROR_MESSAGE.INVALID_SIGNATURE, status: 400 });
     }

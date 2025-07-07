@@ -14,7 +14,7 @@ export const getAllProducts = async (req, res) => {
 
 export const createProduct = async (req, res) => {
     try {
-        const { name, color, category, price, totalItems, availableItems, url, images, description,brandName,modelNo,productID,frameWidth,frameHeight,frameDimention,frameColor ,lensColor, templeColor,frameMaterial,lens,powerSunglasses,gender,warranty} = req.body;
+        const { name, color, category, price, totalItems, availableItems, url, images, description, brandName, modelNo, productID, frameWidth, frameHeight, frameDimention, frameColor, lensColor, templeColor, frameMaterial, lens, powerSunglasses, gender, warranty } = req.body;
 
         // create new user 
         const product = new Product({
@@ -56,7 +56,7 @@ export const updateProduct = async (req, res) => {
     try {
 
         const { id } = req.params;
-        const { name, color, category, price, totalItems, availableItems, url, images, description,brandName,modelNo,productID,frameWidth,frameHeight,frameDimention,frameColor ,lensColor, templeColor,frameMaterial,lens,powerSunglasses,gender,warranty } = req.body;
+        const { name, color, category, price, totalItems, availableItems, url, images, description, brandName, modelNo, productID, frameWidth, frameHeight, frameDimention, frameColor, lensColor, templeColor, frameMaterial, lens, powerSunglasses, gender, warranty } = req.body;
 
         let product = await Product.findById(id); // Await the query
 
@@ -87,7 +87,7 @@ export const updateProduct = async (req, res) => {
         if (lens) product.lens = lens;
         if (powerSunglasses !== undefined) product.powerSunglasses = powerSunglasses;
         if (gender) product.gender = gender;
-        if (warranty) product.warranty = warranty;        
+        if (warranty) product.warranty = warranty;
 
         await product.save(); // Save changes
 
@@ -120,14 +120,14 @@ export const getProduct = async (req, res) => {
     try {
         const { id } = req.params;
         const product = await Product.findOne({ _id: id, isDelete: false })
-        .populate('category')
-        .exec();
+            .populate('category')
+            .exec();
 
         if (!product) {
             return res.status(404).json({ error: ERROR_MESSAGE.PRODUCT_NOT_FOUND, status: 404 });
         }
 
-        res.status(200).json({ product , status: 200 });
+        res.status(200).json({ product, status: 200 });
     } catch (error) {
         res.status(500).json({ error: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 });
     }

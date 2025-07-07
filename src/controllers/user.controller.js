@@ -4,24 +4,24 @@ import jwt from "jsonwebtoken";
 import otpUser from "../models/otp.model.js";
 
 // Get All users
-export const getAllUsers = async (req,res) => {
+export const getAllUsers = async (req, res) => {
     try {
-        const users = await User.find({ isDelete: false});
-        res.status(200).json({users,status:200})
+        const users = await User.find({ isDelete: false });
+        res.status(200).json({ users, status: 200 })
     } catch (error) {
-        res.status(500).json({message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status:500})
+        res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 })
     }
 };
 
 
 // get user by ID 
-export const getUserByID = async (req,res) => {
+export const getUserByID = async (req, res) => {
     try {
-        const user = await User.findOne({ _id:req.params.id, isDelete: false});
-        if (!user) return res.status(404).json({message:ERROR_MESSAGE.USER_NOT_FOUND, status: 404})
-            res.status(200).json({user , status: 200});
+        const user = await User.findOne({ _id: req.params.id, isDelete: false });
+        if (!user) return res.status(404).json({ message: ERROR_MESSAGE.USER_NOT_FOUND, status: 404 })
+        res.status(200).json({ user, status: 200 });
     } catch (error) {
-        res.status(500).json({message:ERROR_MESSAGE.PROCESS_REQUEST,status: 500})
+        res.status(500).json({ message: ERROR_MESSAGE.PROCESS_REQUEST, status: 500 })
     }
 }
 
@@ -80,13 +80,13 @@ export const updateUser = async (req, res) => {
 };
 
 // create new user 
-export const createUser = async (req,res) => {
+export const createUser = async (req, res) => {
     try {
-        const { name,email,number,address } = req.body;
+        const { name, email, number, address } = req.body;
 
         // check for email 
         if (!email) {
-            return res.status(400).json({message: ERROR_MESSAGE.EMAIL_REQUIRED, status:400});
+            return res.status(400).json({ message: ERROR_MESSAGE.EMAIL_REQUIRED, status: 400 });
         }
 
         // create new user 
@@ -99,7 +99,7 @@ export const createUser = async (req,res) => {
 
         await newUser.save();
 
-        res.status(201).json({newUser, status: 201 });
+        res.status(201).json({ newUser, status: 201 });
     } catch (error) {
         res.status(500).json({ message: ERROR_MESSAGE.PROCESS_REQUEST, status: 500 });
     }

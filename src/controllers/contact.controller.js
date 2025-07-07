@@ -5,14 +5,14 @@ export const createContact = async (req, res) => {
     try {
         const { name, email, number, subject, message } = req.body;
 
-        if (!name || !email || !number || !subject || !message ) {
-            return res.status(400).json({ message: ERROR_MESSAGE.ALL_FIELDS_REQUIRED , status: 400});
+        if (!name || !email || !number || !subject || !message) {
+            return res.status(400).json({ message: ERROR_MESSAGE.ALL_FIELDS_REQUIRED, status: 400 });
         }
 
         // create new user 
         const contact = new Contact({
             name: name,
-            email:email,
+            email: email,
             mobile: number,
             subject: subject,
             message: message

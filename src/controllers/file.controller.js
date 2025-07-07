@@ -37,7 +37,7 @@ const uploadFile = (req, res) => {
         if (!req.file) {
             return res.status(400).json({ message: ERROR_MESSAGE.FILE_NOT_FOUND, status: 400 });
         }
-    
+
         res.status(200).json({
             status: 200,
             message: SUCCESS_MESSAGE.FILE_UPLOADED,

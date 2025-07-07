@@ -2,18 +2,18 @@ import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../constants/api.js";
 import wallpapers from "../models/wallpaper.model.js";
 
 // Wallpapers Management 
-export const getAllwallpapers = async (req,res) => {
+export const getAllwallpapers = async (req, res) => {
     try {
 
-        const wallpaer = await wallpapers.find({ isDelete: false});
-        res.status(200).json({ items: wallpaer, status: 200})
+        const wallpaer = await wallpapers.find({ isDelete: false });
+        res.status(200).json({ items: wallpaer, status: 200 })
 
     } catch (error) {
         res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 });
     }
 }
 
-export const getWallpaperByID = async (req,res) => {
+export const getWallpaperByID = async (req, res) => {
     try {
 
         const { id } = req.params
@@ -21,10 +21,10 @@ export const getWallpaperByID = async (req,res) => {
         const wallpaper = await wallpapers.find({ _id: id, isDelete: false });
 
 
-        res.status(200).json({ items: wallpaper, status: 200});
+        res.status(200).json({ items: wallpaper, status: 200 });
     } catch (error) {
         console.log(error.message)
-        res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND , status: 500 });
+        res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 });
     }
 }
 

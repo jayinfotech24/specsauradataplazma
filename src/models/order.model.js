@@ -15,7 +15,7 @@ const orderSchema = new mongoose.Schema(
                 cart: {
                     type: mongoose.Schema.Types.ObjectId,
                     ref: MODEL_NAME.CART,
-                    required: true,    
+                    required: true,
                 },
                 prescription: {
                     type: mongoose.Schema.Types.ObjectId,

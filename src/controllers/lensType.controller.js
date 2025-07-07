@@ -116,14 +116,14 @@ export const updateLanseType = async (req, res) => {
 
         // Optional field validations (only if updating these fields)
         if (lensMainType !== undefined && !lensMainType.trim()) {
-            return res.status(400).json({ error: "lensMainType cannot be empty", status: 400  });
+            return res.status(400).json({ error: "lensMainType cannot be empty", status: 400 });
         }
         if (name !== undefined && !name.trim()) {
-            return res.status(400).json({ error: "name cannot be empty", status: 400  });
+            return res.status(400).json({ error: "name cannot be empty", status: 400 });
         }
 
         if (description !== undefined && !description.trim()) {
-            return res.status(400).json({ error: "description cannot be empty", status: 400  });
+            return res.status(400).json({ error: "description cannot be empty", status: 400 });
         }
 
         const updatedLens = await LensType.findOneAndUpdate(
@@ -136,13 +136,13 @@ export const updateLanseType = async (req, res) => {
             return res.status(404).json({ message: "Lens type not found or already deleted", status: 404 });
         }
 
-        res.status(200).json({ updatedLens, status: 200});
+        res.status(200).json({ updatedLens, status: 200 });
     } catch (err) {
-        res.status(400).json({ error: err.message , status: 400});
+        res.status(400).json({ error: err.message, status: 400 });
     }
 };
 
-export const deleteLansetype =  async (req, res) => {
+export const deleteLansetype = async (req, res) => {
     try {
         const deletedLens = await LensType.findOneAndUpdate(
             { _id: req.params.id, isDelete: false },

@@ -5,7 +5,7 @@ export const createCart = async (req, res) => {
     try {
         const { userID, productID, lensType, numberOfItems, lensCoating, lensMaterial, prescriptionID, isDelete } = req.body
 
-        if (!userID || !productID || !numberOfItems ) {
+        if (!userID || !productID || !numberOfItems) {
             res.status(404).json({ message: "please provide all fileds.", status: 404 });
         }
 
@@ -127,7 +127,7 @@ export const getManyCarts = async (req, res) => {
 
         res.status(200).json({
             status: 200,
-            items:carts
+            items: carts
         });
 
     } catch (error) {
@@ -144,13 +144,13 @@ export const getAllCartforuser = async (req, res) => {
         const { id } = req.params;
 
         const carts = await Cart.find({ userID: id, isDelete: false })
-        .populate("prescriptionID")
-        .populate("productID")
-        .populate("lensCoating")
-        .populate("lensType")
-        .exec();
+            .populate("prescriptionID")
+            .populate("productID")
+            .populate("lensCoating")
+            .populate("lensType")
+            .exec();
 
-        res.status(200).json({ items: carts, status: 200});
+        res.status(200).json({ items: carts, status: 200 });
 
     } catch (error) {
         res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 })
@@ -163,12 +163,12 @@ export const getSingleCart = async (req, res) => {
 
         const { id } = req.params;
 
-        const carts = await Cart.findOne({ _id: id,isDelete: false })
-        .populate("prescriptionID")
-        .populate("productID")
-        .populate("lensCoating")
-        .populate("lensType")
-        .exec();
+        const carts = await Cart.findOne({ _id: id, isDelete: false })
+            .populate("prescriptionID")
+            .populate("productID")
+            .populate("lensCoating")
+            .populate("lensType")
+            .exec();
 
         res.status(200).json({ carts, status: 200 });
 
@@ -181,7 +181,7 @@ export const getSingleCart = async (req, res) => {
 export const updateCartFlag = async (req, res) => {
     try {
         const { id } = req.params; // Get prescription ID from URL params
-        
+
         const updatedCart = await Cart.findById(id);
 
         if (!updatedCart) {

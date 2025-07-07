@@ -6,26 +6,26 @@ import otpUser from "../models/otp.model.js";
 export const adminLogin = async (req, res) => {
     try {
 
-        const { email,password } = req.body
+        const { email, password } = req.body
 
         if (!email || !password) {
             return res.status(400).json({ message: "Email and password both required!", status: 400 });
         }
 
-        const adminUser = await Admin.findOne({email: new RegExp(`^${email}$`, 'i')})
+        const adminUser = await Admin.findOne({ email: new RegExp(`^${email}$`, 'i') })
 
         if (!adminUser) {
-          return res.status(400).json({ message: "You are not admin please contact developer for credentials!", status: 400})
+            return res.status(400).json({ message: "You are not admin please contact developer for credentials!", status: 400 })
         }
 
         if (adminUser.password != password) {
-           return res.status(400).json({ message: "Incorrect Password", status: 400});
+            return res.status(400).json({ message: "Incorrect Password", status: 400 });
         }
 
         let otpuser = await otpUser.findOne({ email: new RegExp(`^${email}$`, 'i') });
 
         if (!otpuser) {
-            otpuser = new otpUser({ email,undefined,undefined});
+            otpuser = new otpUser({ email, undefined, undefined });
         }
 
         otpuser.isVarified = true
@@ -34,7 +34,7 @@ export const adminLogin = async (req, res) => {
         let user = await User.findOne({ email: new RegExp(`^${email}$`, 'i') });
 
         if (!user) {
-            user = new User({ email, undefined, undefined});
+            user = new User({ email, undefined, undefined });
             console.log("User created Sucessfully")
         }
 

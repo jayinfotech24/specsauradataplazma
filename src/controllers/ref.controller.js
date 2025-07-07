@@ -25,15 +25,15 @@ export const getReference = async (req, res) => {
     }
 }
 
-export const getDashboardData = async (req,res) => {
+export const getDashboardData = async (req, res) => {
     try {
 
-        const customerConts = await User.countDocuments({ isDelete: false});
+        const customerConts = await User.countDocuments({ isDelete: false });
         const orderCounts = await Order.countDocuments({ isDelete: false });
 
-        res.status(200).json({ customers: customerConts, orders: orderCounts , status: 200});
-        
+        res.status(200).json({ customers: customerConts, orders: orderCounts, status: 200 });
+
     } catch (error) {
-        res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500});
+        res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 });
     }
 }

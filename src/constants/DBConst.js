@@ -1,5 +1,5 @@
 export const MODEL_NAME = Object.freeze({
-    USER: 'User',  
+    USER: 'User',
     CART: 'Cart',
     CATEGORY: 'Category',
     CONTACT: 'Contact',

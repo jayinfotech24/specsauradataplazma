@@ -3,10 +3,10 @@ import displayVideo from "../models/displayVideo.model.js";
 
 // Wallpapers Management 
 
-export const getAllVideos = async (req,res) => {
+export const getAllVideos = async (req, res) => {
     try {
 
-        const videos = await displayVideo.find({ isDelete: false});
+        const videos = await displayVideo.find({ isDelete: false });
         res.status(200).json({ items: videos, status: 200 });
 
     } catch (error) {
@@ -14,15 +14,15 @@ export const getAllVideos = async (req,res) => {
     }
 }
 
-export const getVideoByID = async (req,res) => {
+export const getVideoByID = async (req, res) => {
     try {
 
         const { id } = req.params
 
         const videos = await displayVideo.find({ _id: id, isDelete: false });
-        res.status(200).json({ items: videos, status: 200});
+        res.status(200).json({ items: videos, status: 200 });
     } catch (error) {
-        res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND , status: 500 });
+        res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 });
     }
 }
 
@@ -75,7 +75,7 @@ export const deleteVideo = async (req, res) => {
 
         const { id } = req.params
 
-        let video = await displayVideo.find({ _id:id, isDelete: false});
+        let video = await displayVideo.find({ _id: id, isDelete: false });
 
         if (!video) {
             return res.status(404).json({ message: "Video not found", status: 404 });
