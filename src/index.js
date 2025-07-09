@@ -18,20 +18,26 @@ app.use(cors());
 // Routes
 app.use("/api/", globalRoute);
 
-// GitHub Webhook Route
 app.post("/webhook", (req, res) => {
     const event = req.headers["x-github-event"];
-    
+    const scriptPath = "/root/specsauradataplazma/deploy.sh";
+
+    console.log("🔔 Webhook hit. Event:", event);
+
     if (event === "push") {
-        exec("sh ./deploy.sh", (err, stdout, stderr) => {
-            if (err) {
-                console.error(`Deploy error: ${stderr}`);
-                return res.status(500).send("Deploy failed");
+        exec(`sh ${scriptPath}`, (error, stdout, stderr) => {
+            if (error) {
+                console.error("❌ Exec error:", error.message);
+                console.error("❌ stderr:", stderr);
+                res.status(500).send("Deploy failed");
+                return;
             }
-            console.log(`Deploy success: ${stdout}`);
-            return res.status(200).send("Deploy success");
+
+            console.log("✅ stdout:", stdout);
+            res.status(200).send("Deploy success");
         });
     } else {
+        console.log("⛔ Not a push event");
         res.status(400).send("Not a push event");
     }
 });
