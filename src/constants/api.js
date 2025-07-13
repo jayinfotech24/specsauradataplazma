@@ -26,3 +26,10 @@ export const SUCCESS_MESSAGE = Object.freeze({
     FILE_UPLOADED: 'File uploaded successfully.',
     PAYMENT_VARIFIED: 'Payment Verified',
 })
+
+export const COLLECTION_TYPES = Object.freeze({
+    ASCEND_DRIP: 'Ascend Drip',
+    SERAPHIC: 'Seraphic',
+    PRIUM_X: 'Prium X',
+    HALOSPECS: 'Halospecs'
+})

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { MODEL_NAME } from "../constants/DBConst.js";
+import { COLLECTION_TYPES } from "../constants/api.js";
 
 const productSchema = new mongoose.Schema(
     {
@@ -28,7 +29,12 @@ const productSchema = new mongoose.Schema(
         lens: { type: String, default: null },
         powerSunglasses: { type: Boolean, default: false },
         gender: { type: String, default: "MALE" },
-        warranty: { type: String, default: null }
+        warranty: { type: String, default: null },
+        collection_type: { 
+            type: String, 
+            enum: Object.values(COLLECTION_TYPES),
+            default: COLLECTION_TYPES.ASCEND_DRIP 
+        }
     },
     { timestamps: true }
 );

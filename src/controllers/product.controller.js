@@ -14,7 +14,7 @@ export const getAllProducts = async (req, res) => {
 
 export const createProduct = async (req, res) => {
     try {
-        const { name, color, category, price, totalItems, availableItems, url, images, description, brandName, modelNo, productID, frameWidth, frameHeight, frameDimention, frameColor, lensColor, templeColor, frameMaterial, lens, powerSunglasses, gender, warranty } = req.body;
+        const { name, color, category, price, totalItems, availableItems, url, images, description, brandName, modelNo, productID, frameWidth, frameHeight, frameDimention, frameColor, lensColor, templeColor, frameMaterial, lens, powerSunglasses, gender, warranty, collection_type } = req.body;
 
         // create new user 
         const product = new Product({
@@ -40,7 +40,8 @@ export const createProduct = async (req, res) => {
             lens: lens || undefined,
             powerSunglasses: powerSunglasses || false,
             gender: gender || 'MALE',
-            warranty: warranty || undefined
+            warranty: warranty || undefined,
+            collection_type: collection_type || undefined
         });
 
         await product.save();
@@ -56,7 +57,7 @@ export const updateProduct = async (req, res) => {
     try {
 
         const { id } = req.params;
-        const { name, color, category, price, totalItems, availableItems, url, images, description, brandName, modelNo, productID, frameWidth, frameHeight, frameDimention, frameColor, lensColor, templeColor, frameMaterial, lens, powerSunglasses, gender, warranty } = req.body;
+        const { name, color, category, price, totalItems, availableItems, url, images, description, brandName, modelNo, productID, frameWidth, frameHeight, frameDimention, frameColor, lensColor, templeColor, frameMaterial, lens, powerSunglasses, gender, warranty, collection_type } = req.body;
 
         let product = await Product.findById(id); // Await the query
 
@@ -88,6 +89,7 @@ export const updateProduct = async (req, res) => {
         if (powerSunglasses !== undefined) product.powerSunglasses = powerSunglasses;
         if (gender) product.gender = gender;
         if (warranty) product.warranty = warranty;
+        if (collection_type) product.collection_type = collection_type;
 
         await product.save(); // Save changes
 
