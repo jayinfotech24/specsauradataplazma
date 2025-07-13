@@ -126,7 +126,7 @@ globalRoute.get("/products/all", getAllProducts);
 globalRoute.post("/product", createProduct);
 globalRoute.get("/product/:id", getProduct);
 globalRoute.delete("/product/:id", authMiddleware, deleteProduct);
-globalRoute.patch("/product/:id", authMiddleware, updateProduct);
+globalRoute.patch("/product/:id", updateProduct);
 
 // Lense Types Route
 globalRoute.get("/lens/", getAllTypes);

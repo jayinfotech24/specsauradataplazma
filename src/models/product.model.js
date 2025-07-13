@@ -40,7 +40,8 @@ const productSchema = new mongoose.Schema(
             type: String,
             enum: FRAME_SHAPES,
             default: null
-        }
+        },
+        crossPrice: { type: Number, default: null }
     },
     { timestamps: true }
 );
@@ -49,6 +50,14 @@ const productSchema = new mongoose.Schema(
 productSchema.pre("save", function (next) {
     if (this.isNew && typeof this.price === "number") {
         this.price = Math.round(this.price * 1.02);
+    }
+    // Calculate crossPrice before saving
+    if (typeof this.discount === 'number' && (this.discount === 0 || this.discount === 1) && typeof this.price === 'number') {
+        this.crossPrice = this.price;
+    } else if (typeof this.discount === 'number' && this.discount > 0 && typeof this.price === 'number') {
+        this.crossPrice = Math.round((this.price * this.discount) / 100);
+    } else {
+        this.crossPrice = this.price;
     }
     next();
 });
