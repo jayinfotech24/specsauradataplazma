@@ -2,7 +2,6 @@ import { MODEL_NAME } from "../constants/DBConst.js";
 import Order from "../models/order.model.js";
 import User from "../models/user.model.js";
 import { sendEmail } from "./mail.controller.js";
-import { generateOrderEmail } from "../constants/orderTemplate.js"
 
 export const createOrder = async (req, res) => {
     try {
@@ -33,18 +32,33 @@ export const createOrder = async (req, res) => {
 
         await order.save();
 
-        let orderTemp = generateOrderEmail({ orderId: order._id, items: items, totalPrice: totalAmount, customerName: shippingAddress['fullName'] })
-
-        await sendEmail(currentUser.email, orderTemp, `Your Order created Successfully on ${new Date().toLocaleDateString()}`).then((result) => {
-            console.log("Order Email Sent Successful")
-        }).catch((error) => {
-            console.log("Failed to send email of Order");
-            console.log(error.message)
-        })
-
         res.status(201).json({ message: "Order created successfully", order, status: 201 });
     } catch (error) {
         console.error("Create Order Error:", error);
+        res.status(500).json({ message: error.message || "Internal server error", status: 500 });
+    }
+};
+
+export const sendOrderEmail = async (req, res) => {
+    try {
+        const { email, htmlTemplate, orderId } = req.body;
+
+        // Basic validations
+        if (!email || !htmlTemplate || !orderId) {
+            return res.status(400).json({ message: "Email, HTML template, and order ID are required", status: 400 });
+        }
+
+        await sendEmail(email, htmlTemplate, `Your Order created Successfully on ${new Date().toLocaleDateString()}`).then((result) => {
+            console.log("Order Email Sent Successful");
+            res.status(200).json({ message: "Order email sent successfully", status: 200 });
+        }).catch((error) => {
+            console.log("Failed to send email of Order");
+            console.log(error.message);
+            res.status(500).json({ message: "Failed to send order email", status: 500 });
+        });
+
+    } catch (error) {
+        console.error("Send Order Email Error:", error);
         res.status(500).json({ message: error.message || "Internal server error", status: 500 });
     }
 };

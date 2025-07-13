@@ -76,7 +76,8 @@ import {
     getOrderById,
     getOrders,
     deleteOrder,
-    getAllOrders
+    getAllOrders,
+    sendOrderEmail
 } from "../controllers/order.controller.js";
 import {
     createBlog,
@@ -178,6 +179,7 @@ globalRoute.get('/presc/:id', authMiddleware, getPrescription);
 
 // ORDER ROUTES
 globalRoute.post('/order', authMiddleware, createOrder);
+globalRoute.post('/order/email', authMiddleware, sendOrderEmail);
 globalRoute.get('/orders/user/:id', authMiddleware, getOrders);
 globalRoute.get('/order/all', authMiddleware, getAllOrders);
 globalRoute.get('/order/:id', authMiddleware, getOrderById);
