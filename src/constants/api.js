@@ -33,3 +33,26 @@ export const COLLECTION_TYPES = Object.freeze({
     PRIUM_X: 'Prium X',
     HALOSPECS: 'Halospecs'
 })
+
+export const FRAME_SHAPES = Object.freeze([
+    "Round",
+    "Oval",
+    "Square",
+    "Rectangle",
+    "Cat Eye",
+    "Geometric",
+    "Hexagon",
+    "Octagon",
+    "Browline",
+    "Butterfly",
+    "Wraparound",
+    "Shield",
+    "Aviator",
+    "Wayfarer",
+    "Rimless",
+    "Semi-Rimless",
+    "Full Rim",
+    "Heart",
+    "Star",
+    "Novelty"
+]);

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { MODEL_NAME } from "../constants/DBConst.js";
-import { COLLECTION_TYPES } from "../constants/api.js";
+import { COLLECTION_TYPES, FRAME_SHAPES } from "../constants/api.js";
 
 const productSchema = new mongoose.Schema(
     {
@@ -34,6 +34,11 @@ const productSchema = new mongoose.Schema(
             type: String, 
             enum: Object.values(COLLECTION_TYPES),
             default: COLLECTION_TYPES.ASCEND_DRIP 
+        },
+        frameShape: {
+            type: String,
+            enum: FRAME_SHAPES,
+            default: null
         }
     },
     { timestamps: true }

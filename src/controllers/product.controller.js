@@ -14,7 +14,7 @@ export const getAllProducts = async (req, res) => {
 
 export const createProduct = async (req, res) => {
     try {
-        const { name, color, category, price, totalItems, availableItems, url, images, description, brandName, modelNo, productID, frameWidth, frameHeight, frameDimention, frameColor, lensColor, templeColor, frameMaterial, lens, powerSunglasses, gender, warranty, collection_type } = req.body;
+        const { name, color, category, price, totalItems, availableItems, url, images, description, brandName, modelNo, productID, frameWidth, frameHeight, frameDimention, frameColor, lensColor, templeColor, frameMaterial, lens, powerSunglasses, gender, warranty, collection_type, frameShape } = req.body;
 
         // create new user 
         const product = new Product({
@@ -41,7 +41,8 @@ export const createProduct = async (req, res) => {
             powerSunglasses: powerSunglasses || false,
             gender: gender || 'MALE',
             warranty: warranty || undefined,
-            collection_type: collection_type || undefined
+            collection_type: collection_type || undefined,
+            frameShape: frameShape || undefined
         });
 
         await product.save();
@@ -57,7 +58,7 @@ export const updateProduct = async (req, res) => {
     try {
 
         const { id } = req.params;
-        const { name, color, category, price, totalItems, availableItems, url, images, description, brandName, modelNo, productID, frameWidth, frameHeight, frameDimention, frameColor, lensColor, templeColor, frameMaterial, lens, powerSunglasses, gender, warranty, collection_type } = req.body;
+        const { name, color, category, price, totalItems, availableItems, url, images, description, brandName, modelNo, productID, frameWidth, frameHeight, frameDimention, frameColor, lensColor, templeColor, frameMaterial, lens, powerSunglasses, gender, warranty, collection_type, frameShape } = req.body;
 
         let product = await Product.findById(id); // Await the query
 
@@ -90,6 +91,7 @@ export const updateProduct = async (req, res) => {
         if (gender) product.gender = gender;
         if (warranty) product.warranty = warranty;
         if (collection_type) product.collection_type = collection_type;
+        if (frameShape) product.frameShape = frameShape;
 
         await product.save(); // Save changes
 
