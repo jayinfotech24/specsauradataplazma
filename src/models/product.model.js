@@ -30,6 +30,7 @@ const productSchema = new mongoose.Schema(
         powerSunglasses: { type: Boolean, default: false },
         gender: { type: String, default: "MALE" },
         warranty: { type: String, default: null },
+        discount: { type: Number, default: 0 },
         collection_type: { 
             type: String, 
             enum: Object.values(COLLECTION_TYPES),
