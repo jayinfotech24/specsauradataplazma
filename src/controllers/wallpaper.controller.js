@@ -32,12 +32,13 @@ export const getWallpaperByID = async (req, res) => {
 export const createWallpaper = async (req, res) => {
     try {
 
-        const { url, title, description } = req.body;
+        const { url, title, description, navigation } = req.body;
 
         const wallpaer = new wallpapers({
             url: url,
             title: title,
-            description: description
+            description: description,
+            navigation: navigation || null
         });
 
         await wallpaer.save();
@@ -53,7 +54,7 @@ export const updateWallpaper = async (req, res) => {
     try {
 
         const { id } = req.params
-        const { url, title, description } = req.body;
+        const { url, title, description, navigation } = req.body;
 
         let wallpaper = await wallpapers.findById(id);
 
@@ -65,6 +66,7 @@ export const updateWallpaper = async (req, res) => {
         if (url) wallpaper.url = url;
         if (title) wallpaper.title = title;
         if (description) wallpaper.description = description;
+        if (navigation) wallpaper.navigation = navigation;
 
         await wallpaper.save();
 

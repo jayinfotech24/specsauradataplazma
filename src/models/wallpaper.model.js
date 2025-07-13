@@ -6,6 +6,7 @@ const wallpaperSchema = new mongoose.Schema(
         url: { type: String, requred: true },
         title: { type: String, default: null },
         description: { type: String, default: null },
+        navigation: { type: String, default: null },
         isDelete: { type: Boolean, default: false }
     },
     { timestamps: true } // Adds createdAt and updatedAt
