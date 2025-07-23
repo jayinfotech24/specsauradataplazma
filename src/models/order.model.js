@@ -56,7 +56,14 @@ const orderSchema = new mongoose.Schema(
             phone: { type: String, required: true },
         },
 
-        isDelete: { type: Boolean, default: false }
+        isDelete: { type: Boolean, default: false },
+        // GST Breakdown
+        gst_breakup: {
+            CGST: { type: Number, default: 0 },
+            SGST: { type: Number, default: 0 },
+            IGST: { type: Number, default: 0 },
+            total_tax: { type: Number, default: 0 }
+        }
     },
     { timestamps: true }
 );

@@ -41,7 +41,8 @@ const productSchema = new mongoose.Schema(
             enum: FRAME_SHAPES,
             default: null
         },
-        crossPrice: { type: Number, default: null }
+        crossPrice: { type: Number, default: null },
+        isAccessory: { type: Boolean, default: false }
     },
     { timestamps: true }
 );

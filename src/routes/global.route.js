@@ -41,6 +41,13 @@ import {
     getWallpaperByID
 } from '../controllers/wallpaper.controller.js';
 import {
+    createGSTRate,
+    getAllGSTRates,
+    getGSTRateById,
+    updateGSTRate,
+    deleteGSTRate
+} from '../controllers/gstRate.controller.js';
+import {
     createVideo,
     updateVideo,
     deleteVideo,
@@ -160,6 +167,14 @@ globalRoute.patch("/video/:id", authMiddleware, updateVideo);
 globalRoute.delete("/wallpaper/:id", authMiddleware, deleteWallpaper);
 globalRoute.delete("/category/:id", authMiddleware, deleteCategory);
 globalRoute.delete("/video/:id", authMiddleware, deleteVideo);
+
+// GST Rate CRUD routes
+
+globalRoute.post("/gstrate", authMiddleware, createGSTRate);
+globalRoute.get("/gstrate", getAllGSTRates);
+globalRoute.get("/gstrate/:id", getGSTRateById);
+globalRoute.patch("/gstrate/:id", authMiddleware, updateGSTRate);
+globalRoute.delete("/gstrate/:id", authMiddleware, deleteGSTRate);
 
 // CART ROUTES
 globalRoute.post('/cart', authMiddleware, createCart);
