@@ -56,7 +56,7 @@ productSchema.pre("save", function (next) {
     if (typeof this.discount === 'number' && (this.discount === 0 || this.discount === 1) && typeof this.price === 'number') {
         this.crossPrice = this.price;
     } else if (typeof this.discount === 'number' && this.discount > 0 && typeof this.price === 'number') {
-        this.crossPrice = Math.round((this.price * this.discount) / 100);
+        this.crossPrice = Math.round(this.price - ((this.price * this.discount) / 100));
     } else {
         this.crossPrice = this.price;
     }
