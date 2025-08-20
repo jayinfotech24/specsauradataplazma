@@ -109,6 +109,14 @@ import {
     deleteCoating,
     getSingleCoating
 } from "../controllers/coating.controller.js";
+import {
+	getAllAccessories,
+	createAccessory,
+	updateAccessory,
+	deleteAccessory,
+	getAccessory,
+	getAccessoriesByCategory
+} from "../controllers/accessory.controller.js";
 
 const globalRoute = express.Router();
 
@@ -134,6 +142,14 @@ globalRoute.post("/product", createProduct);
 globalRoute.get("/product/:id", getProduct);
 globalRoute.delete("/product/:id", authMiddleware, deleteProduct);
 globalRoute.patch("/product/:id", updateProduct);
+
+// ACCESSORY ROUTES
+globalRoute.get("/accessories/all", getAllAccessories);
+globalRoute.get("/accessories/category/:categoryId", getAccessoriesByCategory);
+globalRoute.post("/accessory", authMiddleware, createAccessory);
+globalRoute.get("/accessory/:id", getAccessory);
+globalRoute.delete("/accessory/:id", authMiddleware, deleteAccessory);
+globalRoute.patch("/accessory/:id", authMiddleware, updateAccessory);
 
 // Lense Types Route
 globalRoute.get("/lens/", getAllTypes);
