@@ -6,7 +6,9 @@ import otpUser from "../models/otp.model.js";
 // Get All users
 export const getAllUsers = async (req, res) => {
     try {
-        const users = await User.find({ isDelete: false });
+        const users = await User.find({ isDelete: false })
+            .sort({ createdAt: -1 })
+            .exec();
         res.status(200).json({ users, status: 200 })
     } catch (error) {
         res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 })

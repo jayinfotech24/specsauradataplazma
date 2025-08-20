@@ -3,7 +3,7 @@ import Coating from "../models/coating.model.js";
 // GET all coating types
 export const getAllCoatings = async (req, res) => {
     try {
-        const coatings = await Coating.find({ isDelete: false }).populate('lens');
+        const coatings = await Coating.find({ isDelete: false }).sort({ createdAt: -1 }).populate('lens').exec();
         res.status(200).json({ items: coatings, status: 200 });
     } catch (err) {
         res.status(500).json({ error: err.message, status: 500 });
@@ -38,7 +38,7 @@ export const getAllCoatingForSingleTypeLens = async (req, res) => {
             return res.status(400).json({ error: "lensMainType is required", status: 400 });
         }
 
-        const coatings = await Coating.find({ lens: lensMainType, isDelete: false }).populate('lens');
+        const coatings = await Coating.find({ lens: lensMainType, isDelete: false }).sort({ createdAt: -1 }).populate('lens').exec();
 
         if (!coatings || coatings.length === 0) {
             return res.status(404).json({ message: "No coatings found for given lens type", status: 404 });

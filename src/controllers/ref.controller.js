@@ -10,9 +10,9 @@ import Order from "../models/order.model.js";
 
 export const getReference = async (req, res) => {
     try {
-        const wallpaper = await wallpapers.find({ isDelete: false });
-        const categories = await category.find({ isDelete: false });
-        const displayVideo = await DisplayVideo.find({ isDelete: false });
+        const wallpaper = await wallpapers.find({ isDelete: false }).sort({ createdAt: -1 }).exec();
+        const categories = await category.find({ isDelete: false }).sort({ createdAt: -1 }).exec();
+        const displayVideo = await DisplayVideo.find({ isDelete: false }).sort({ createdAt: -1 }).exec();
 
         res.json({
             wallpapers: wallpaper,

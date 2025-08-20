@@ -29,7 +29,7 @@ export const createLnsType = async (req, res) => {
 
 export const getAllTypes = async (req, res) => {
     try {
-        const lensTypes = await LensType.find({ isDelete: false });
+        const lensTypes = await LensType.find({ isDelete: false }).sort({ createdAt: -1 }).exec();
 
         if (!lensTypes || lensTypes.length === 0) {
             return res.status(404).json({ message: "No lens types found", status: 404 });
@@ -83,7 +83,7 @@ export const getAllLansesForSingleType = async (req, res) => {
             return res.status(400).json({ error: "lensMainType is required", status: 400 });
         }
 
-        const lensTypes = await LensType.find({ lensMainType, isDelete: false });
+        const lensTypes = await LensType.find({ lensMainType, isDelete: false }).sort({ createdAt: -1 }).exec();
 
         if (!lensTypes || lensTypes.length === 0) {
             return res.status(404).json({ message: "No lens types found for given lensMainType", status: 404 });

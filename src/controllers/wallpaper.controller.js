@@ -5,7 +5,9 @@ import wallpapers from "../models/wallpaper.model.js";
 export const getAllwallpapers = async (req, res) => {
     try {
 
-        const wallpaer = await wallpapers.find({ isDelete: false });
+        const wallpaer = await wallpapers.find({ isDelete: false })
+            .sort({ createdAt: -1 })
+            .exec();
         res.status(200).json({ items: wallpaer, status: 200 })
 
     } catch (error) {

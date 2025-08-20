@@ -119,7 +119,7 @@ export const getManyCarts = async (req, res) => {
         }
 
         // Fetch all matching cart items
-        const carts = await Cart.find({ _id: { $in: ids } });
+        const carts = await Cart.find({ _id: { $in: ids } }).sort({ createdAt: -1 }).exec();
 
         if (carts.length === 0) {
             return res.status(404).json({ message: "No matching cart items found.", status: 404 });
@@ -144,6 +144,7 @@ export const getAllCartforuser = async (req, res) => {
         const { id } = req.params;
 
         const carts = await Cart.find({ userID: id, isDelete: false })
+            .sort({ createdAt: -1 })
             .populate("prescriptionID")
             .populate("productID")
             .populate("lensCoating")
@@ -164,6 +165,7 @@ export const getSingleCart = async (req, res) => {
         const { id } = req.params;
 
         const carts = await Cart.findOne({ _id: id, isDelete: false })
+            .sort({ createdAt: -1 })
             .populate("prescriptionID")
             .populate("productID")
             .populate("lensCoating")

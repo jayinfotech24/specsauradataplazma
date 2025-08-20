@@ -5,8 +5,9 @@ import displayVideo from "../models/displayVideo.model.js";
 
 export const getAllVideos = async (req, res) => {
     try {
-
-        const videos = await displayVideo.find({ isDelete: false });
+        const videos = await displayVideo.find({ isDelete: false })
+            .sort({ createdAt: -1 })
+            .exec();
         res.status(200).json({ items: videos, status: 200 });
 
     } catch (error) {
@@ -16,9 +17,7 @@ export const getAllVideos = async (req, res) => {
 
 export const getVideoByID = async (req, res) => {
     try {
-
         const { id } = req.params
-
         const videos = await displayVideo.find({ _id: id, isDelete: false });
         res.status(200).json({ items: videos, status: 200 });
     } catch (error) {
@@ -28,18 +27,13 @@ export const getVideoByID = async (req, res) => {
 
 export const createVideo = async (req, res) => {
     try {
-
         const { url, title } = req.body;
-
         const video = new displayVideo({
             url: url,
             title: title
         });
-
         await video.save();
-
         res.status(200).json({ video, status: 200 })
-
     } catch (error) {
         res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 });
     }
@@ -47,24 +41,17 @@ export const createVideo = async (req, res) => {
 
 export const updateVideo = async (req, res) => {
     try {
-
         const { id } = req.params
         const { url, title } = req.body;
-
         let video = await displayVideo.findById(id);
-
         if (!video) {
             return res.status(404).json({ message: "Video not found", status: 404 });
         }
-
         // Update only provided fields
         if (url) video.url = url;
         if (title) video.title = title;
-
         await video.save();
-
         res.status(200).json({ video, status: 200 })
-
     } catch (error) {
         res.status(500).json({ message: ERROR_MESSAGE.ENTITY_NOT_FOUND, status: 500 });
     }

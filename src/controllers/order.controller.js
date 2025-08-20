@@ -66,6 +66,7 @@ export const sendOrderEmail = async (req, res) => {
 export const getAllOrders = async (req, res) => {
     try {
         const orders = await Order.find({ isDelete: false })
+            .sort({ createdAt: -1 })
             .populate({
                 path: "items.product",
                 model: MODEL_NAME.PRODUCT,
@@ -119,6 +120,7 @@ export const getOrders = async (req, res) => {
         }
 
         const orders = await Order.find({ user: id, isDelete: false })
+            .sort({ createdAt: -1 })
             .populate({
                 path: "items.product",
                 model: MODEL_NAME.PRODUCT,

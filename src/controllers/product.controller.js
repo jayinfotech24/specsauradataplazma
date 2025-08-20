@@ -4,7 +4,7 @@ import Product from "../models/product.model.js";
 
 export const getAllProducts = async (req, res) => {
     try {
-        const products = await Product.find({ isDelete: false }).populate('category').exec();
+        const products = await Product.find({ isDelete: false }).sort({ createdAt: -1 }).populate('category').exec();
         res.status(200).json({ products, status: 200 })
     } catch (error) {
         console.log(error);

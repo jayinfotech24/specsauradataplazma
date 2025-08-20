@@ -4,7 +4,9 @@ import { ERROR_MESSAGE } from "../constants/api.js";
 
 export const getAllBlogs = async (req, res) => {
     try {
-        const blogs = await Blog.find({ isDelete: false });
+        const blogs = await Blog.find({ isDelete: false })
+            .sort({ createdAt: -1 })
+            .exec();
 
         res.status(200).json({ items: blogs, status: 200 });
     } catch (error) {
