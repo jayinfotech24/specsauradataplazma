@@ -10,6 +10,10 @@ const coatingSchema = new mongoose.Schema(
         lens: {
             type: mongoose.Schema.Types.ObjectId,
             ref: MODEL_NAME.LENS_TYPE
+        },
+        imgUrl: {
+            type: String,
+            default: null
         }
     },
     { timestamps: true }
