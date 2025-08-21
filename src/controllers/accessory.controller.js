@@ -112,7 +112,7 @@ export const updateAccessory = async (req, res) => {
 
         await accessory.save();
 
-        res.status(200).json({ message: "Accessory updated successfully", accessory });
+        res.status(200).json({ message: "Accessory updated successfully", accessory, status: 200 });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: ERROR_MESSAGE.PROCESS_REQUEST, status: 500 });
