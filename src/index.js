@@ -13,7 +13,11 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: true,       // reflect the request origin
+    credentials: true   // allow cookies, Authorization headers, etc.
+  }));
+app.options("*", cors());
 
 // Routes
 app.use("/api/", globalRoute);
