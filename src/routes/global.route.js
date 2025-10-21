@@ -125,8 +125,33 @@ globalRoute.get("/reference", getReference);
 globalRoute.get("/dashboard", authMiddleware, getDashboardData);
 
 // OTP ROUTE
-globalRoute.post("/request", requestOTP);
-globalRoute.post("/verify", verifyOTP);
+globalRoute.options("/request", (req, res) => {
+    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.header('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.status(200).end();
+});
+
+globalRoute.options("/verify", (req, res) => {
+    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.header('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.status(200).end();
+});
+
+globalRoute.post("/request", (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
+}, requestOTP);
+
+globalRoute.post("/verify", (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
+}, verifyOTP);
 
 // USER ROUTE
 globalRoute.get("/user/info", authMiddleware, getUserInfo);
