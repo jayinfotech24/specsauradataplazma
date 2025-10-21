@@ -16,9 +16,9 @@ app.use(cors({
     origin: true,       // reflect the request origin
     credentials: true   // allow cookies, Authorization headers, etc.
   }));
+app.options("*", cors());
 
 app.use(express.json());
-app.options("*", cors());
 
 // Routes
 app.use("/api/", globalRoute);
