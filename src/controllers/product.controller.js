@@ -99,7 +99,7 @@ export const updateProduct = async (req, res) => {
 
         await product.save(); // Save changes
 
-        res.status(200).json({ message: "Product updated successfully", product, status: 200 });
+        res.status(200).json({ message: "Product updated successfully", product });
     } catch (error) {
         res.status(500).json({ message: ERROR_MESSAGE.PROCESS_REQUEST, status: 500 });
     }
