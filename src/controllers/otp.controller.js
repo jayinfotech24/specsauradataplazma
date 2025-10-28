@@ -26,6 +26,8 @@ export const requestOTP = async (req, res) => {
         return res.status(403).json({ message: "Disposable email not allowed", status: 403 });
     }
 
+    console.log(`OTP request received for email: ${email}`);
+
     try {
         const otp = generateOTP();
         const otpExpires = Date.now() + 2 * 60 * 1000; // OTP valid for 2 minutes
@@ -42,6 +44,8 @@ export const requestOTP = async (req, res) => {
         let htmlTemp = generateOTPTemplate(otp)
         let subject = `SpeacAura Login OTP for ${new Date().toLocaleDateString()}`
 
+        console.log(`Generated OTP for ${email}: ${otp}`); // For debugging purposes
+
         await sendEmail(email, htmlTemp, subject).then(result => {
             res.status(200).json({ message: SUCCESS_MESSAGE.OTP_SENT, status: 200 });
         }).catch(error => {
@@ -51,6 +55,7 @@ export const requestOTP = async (req, res) => {
         })
 
     } catch (error) {
+        console.log(`Error generating OTP for ${email}: ${error.message}`);
         res.status(500).json({ message: ERROR_MESSAGE.OTP_ERROR, status: 500 });
         console.log(error)
         console.error(error.message)
