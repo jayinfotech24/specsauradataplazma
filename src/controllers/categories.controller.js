@@ -67,6 +67,8 @@ export const updateCategory = async (req, res) => {
         if (title) cat.title = title;
         if (description) cat.description = description;
 
+        cat.updatedAt = new Date();
+        
         await cat.save();
 
         res.status(200).json({ cat, status: 200 })
