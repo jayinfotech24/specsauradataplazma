@@ -6,7 +6,7 @@ import category from "../models/categories.model.js";
 export const getAllcategory = async (req, res) => {
     try {
 
-        const categories = await category.find({ isDelete: false }).sort({ createdAt: -1 }).exec();
+        const categories = await category.find({ isDelete: false }).sort({ updatedAt: -1 }).exec();
         res.status(200).json({ items: categories, status: 200 });
 
     } catch (error) {
