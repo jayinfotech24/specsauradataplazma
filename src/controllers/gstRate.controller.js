@@ -42,7 +42,7 @@ export const updateGSTRate = async (req, res) => {
   try {
     const { id } = req.params;
     const { name, gst } = req.body;
-    const gstRate = await GSTRate.find({ _id: id, isDelete: false });
+    const gstRate = await GSTRate.findOne({ _id: id, isDelete: false });
     if (!gstRate) {
       return res.status(404).json({ message: "GST Rate not found", status: 404 });
     }
