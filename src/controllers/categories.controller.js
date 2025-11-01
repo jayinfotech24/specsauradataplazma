@@ -38,6 +38,7 @@ export const createCategory = async (req, res) => {
         const cat = new category({
             url: url,
             title: title,
+            latestDate: new Date(),
             description: description
         });
 
@@ -67,7 +68,7 @@ export const updateCategory = async (req, res) => {
         if (title) cat.title = title;
         if (description) cat.description = description;
 
-        cat.updatedAt = new Date();
+        cat.latestDate = new Date();
         
         await cat.save();
 

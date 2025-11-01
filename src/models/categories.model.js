@@ -6,6 +6,7 @@ const categorySchema = new mongoose.Schema(
         url: { type: String, requred: true },
         title: { type: String, required: true },
         description: { type: String, default: null },
+        latestDate: { type: Date, default: null },
         isDelete: { type: Boolean, default: false }
     },
     { timestamps: true } // Adds createdAt and updatedAt
